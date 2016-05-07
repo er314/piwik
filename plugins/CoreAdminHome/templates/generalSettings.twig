@@ -16,7 +16,7 @@
             <h3 class="col s12">{{ 'General_AllowPiwikArchivingToTriggerBrowser'|translate }}</h3>
             <div class="col s12 m6">
                 <p>
-                    <input type="radio" value="1"  id="enableBrowserTriggerArchiving1"
+                    <input type="radio" value="1" id="enableBrowserTriggerArchiving1"
                            name="enableBrowserTriggerArchiving" {% if enableBrowserTriggerArchiving==1 %} checked="checked"{% endif %}
                     />
                     <label for="enableBrowserTriggerArchiving1">
@@ -95,7 +95,7 @@
             </div>
 
             <div id="smtpSettings"
-                 field-condition="mailUseSmtp">
+                 ng-show="mailSettings.enabled">
 
                 <div piwik-field uicontrol="text" name="mailHost"
                      ng-model="mailSettings.mailHost"
@@ -163,7 +163,7 @@
              value="{% if branding.use_custom_logo == 1 %}1{% endif %}" inline-help="{{ help|e('html_attr') }}">
         </div>
 
-        <div id="logoSettings" field-condition="useCustomLogo">
+        <div id="logoSettings" ng-show="brandingSettings.enabled">
             <form id="logoUploadForm" method="post" enctype="multipart/form-data" action="index.php?module=CoreAdminHome&format=json&action=uploadCustomLogo">
                 {% if fileUploadEnabled %}
                     <input type="hidden" name="token_auth" value="{{ token_auth }}"/>

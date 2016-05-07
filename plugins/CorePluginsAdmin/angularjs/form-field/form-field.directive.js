@@ -16,6 +16,110 @@
 
     function piwikFormField(piwik, $timeout){
 
+        function hasUiControl(field, uiControlType)
+        {
+            return field.uiControl === uiControlType;
+        }
+
+        function isSelectControl(field)
+        {
+            return hasUiControl(field, 'select') || hasUiControl(field, 'multiselect');
+        }
+
+        function hasGroupedValues(availableValues)
+        {
+            if (!angular.isObject(availableValues)
+                || angular.isArray(availableValues)) {
+                return false;
+            }
+
+            var key;
+            for (key in availableValues) {
+                if (Object.prototype.hasOwnProperty.call(availableValues, key)) {
+                    if (angular.isObject(availableValues[key])) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+            }
+
+            return false;
+        }
+
+        function whenRendered(scope, element, inlineHelpNode) {
+            return function () {
+                var field = scope.formField;
+
+                if (inlineHelpNode) {
+                    angular.element(inlineHelpNode).appendTo(element.find('.inline-help'));
+                }
+
+                if (isSelectControl(field)) {
+                    var $select = element.find('select');
+                    $select.material_select();
+
+                    scope.$watch('formField.value', function (val, oldVal) {
+                        if (val !== oldVal) {
+                            $timeout(function () {
+                                $select.material_select();
+                            });
+                        }
+                    });
+
+                } else if (hasUiControl(field, 'textarea')) {
+                    element.find('textarea').trigger('autoresize');
+                    scope.$watch('formField.value', function (val, oldVal) {
+                        if (val !== oldVal) {
+                            $timeout(function () {
+                                element.find('textarea').trigger('autoresize');
+                            });
+                        }
+                    });
+
+                } else if (hasUiControl(field, 'file')) {
+
+                    // angular doesn't support file input type with ngModel. We implement our own "two way binding"
+                    var $file = element.find('[type=file]');
+
+                    $file.on('change', function () {
+                        scope.formField.value = $(this).val();
+                    });
+
+                    scope.$watch('formField.value', function (val, oldVal) {
+                        if (val !== oldVal && val === '') {
+                            $file.val('');
+                        }
+                    });
+
+                } else {
+                    Materialize.updateTextFields();
+                    scope.$watch('formField.value', function (val, oldVal) {
+                        if (val !== oldVal) {
+                            $timeout(function () {
+                                Materialize.updateTextFields();
+                            });
+                        }
+                    });
+                }
+            }
+        }
+
+        function getTemplate(field) {
+            var control = field.uiControl;
+            if (control === 'password') {
+                control = 'text'; // we use same template for text and password both
+            }
+
+            var file = 'field-' + control;
+            var fieldsSupportingArrays = ['textarea', 'checkbox', 'text'];
+            if (field.type === 'array' && fieldsSupportingArrays.indexOf(control) !== -1) {
+                file += '-array';
+            }
+
+            return 'plugins/CorePluginsAdmin/angularjs/form-field/' + file + '.html?cb=' + piwik.cacheBuster;
+        };
+
         return {
             restrict: 'A',
             scope: {
@@ -41,37 +145,6 @@
                     });
 
                     field.showField = scope.$eval(field.condition, values);
-                }
-
-                function hasUiControl(field, uiControlType)
-                {
-                    return field.uiControl === uiControlType;
-                }
-
-                function isSelectControl(field)
-                {
-                    return hasUiControl(field, 'select') || hasUiControl(field, 'multiselect');
-                }
-
-                function hasGroupedValues(availableValues)
-                {
-                    if (!angular.isObject(availableValues)
-                        || angular.isArray(availableValues)) {
-                        return false;
-                    }
-
-                    var key;
-                    for (key in availableValues) {
-                        if (Object.prototype.hasOwnProperty.call(availableValues, key)) {
-                            if (angular.isObject(availableValues[key])) {
-                                return true;
-                            } else {
-                                return false;
-                            }
-                        }
-                    }
-
-                    return false;
                 }
 
                 function formatAvailableValues(field)
@@ -181,7 +254,10 @@
                                 });
                             }
                         }
+                    }
 
+                    if (!field.templateFile) {
+                        field.templateFile = getTemplate(field);
                     }
 
                     scope.formField = field;
@@ -195,60 +271,11 @@
                             }
                         }
                     });
+                    scope.templateLoaded = function () {
+                        console.log('rendered');
+                        $timeout(whenRendered(scope, element, inlineHelpNode));
+                    };
 
-                    $timeout(function () {
-                        if (inlineHelpNode) {
-                            angular.element(inlineHelpNode).appendTo(element.find('.inline-help'));
-                        }
-
-                        if (isSelectControl(field)) {
-                            var $select = element.find('select');
-                            $select.material_select();
-
-                            scope.$watch('formField.value', function (val, oldVal) {
-                                if (val !== oldVal) {
-                                    $timeout(function () {
-                                        $select.material_select();
-                                    });
-                                }
-                            });
-
-                        } else if (hasUiControl(field, 'textarea')) {
-                            element.find('textarea').trigger('autoresize');
-                            scope.$watch('formField.value', function (val, oldVal) {
-                                if (val !== oldVal) {
-                                    $timeout(function () {
-                                        element.find('textarea').trigger('autoresize');
-                                    });
-                                }
-                            });
-
-                        } else if (hasUiControl(field, 'file')) {
-
-                            // angular doesn't support file input type with ngModel. We implement our own "two way binding"
-                            var $file = element.find('[type=file]');
-
-                            $file.on('change', function () {
-                                scope.formField.value = $(this).val();
-                            });
-
-                            scope.$watch('formField.value', function (val, oldVal) {
-                                if (val !== oldVal && val === '') {
-                                    $file.val('');
-                                }
-                            });
-
-                        } else {
-                            Materialize.updateTextFields();
-                            scope.$watch('formField.value', function (val, oldVal) {
-                                if (val !== oldVal) {
-                                    $timeout(function () {
-                                        Materialize.updateTextFields();
-                                    });
-                                }
-                            });
-                        }
-                    });
                 };
             }
         };

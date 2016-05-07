@@ -18,9 +18,10 @@
  * introduction=""
  * name=""
  * autocomplete="off"
- * disabled="true"></div>
+ * disabled="true"
+ * templateFile=""></div>
  *
- * You can combine it with "field-condition=''".
+ * templateFile allows to render a custom template
  * We do not use type= attribute here as it would match some CSS from input type=radio etc
  */
 (function () {
@@ -48,7 +49,8 @@
                 condition: '@',
                 varType: '@',
                 autofocus: '@',
-                tabindex: '@'
+                tabindex: '@',
+                templateFile: '@'
             },
             template: '<div piwik-form-field="field"></div>',
             link: function(scope, elm, attrs, ctrl) {
@@ -95,6 +97,7 @@
                 field.description = $scope.description;
                 field.introduction = $scope.introduction;
                 field.inlineHelp = $scope.inlineHelp;
+                field.templateFile = $scope.templateFile;
                 field.title = $scope.title;
                 field.uiControlAttributes = {};
 
