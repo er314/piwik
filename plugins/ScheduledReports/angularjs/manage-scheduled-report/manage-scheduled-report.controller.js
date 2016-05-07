@@ -14,6 +14,11 @@
 
         var self = this;
 
+        function scrollToTop()
+        {
+            piwikHelper.lazyScrollTo(".emailReports", 200);
+        }
+
         function updateParameters(reportType, report)
         {
             if (updateReportParametersFunctions && updateReportParametersFunctions[reportType]) {
@@ -41,9 +46,9 @@
             if (idReport > 0) {
                 report = ReportPlugin.reportList[idReport];
                 updateParameters(report.type, report);
-                $('#report_submit').val(ReportPlugin.updateReportString);
+                self.saveButtonTitle = ReportPlugin.updateReportString;
             } else {
-                $('#report_submit').val(ReportPlugin.createReportString);
+                self.saveButtonTitle = ReportPlugin.createReportString;
                 resetParameters(report.type, report);
             }
 
@@ -62,15 +67,18 @@
         }
 
         function getReportAjaxRequest(idReport, defaultApiMethod) {
-            var parameters = {};
-            piwikHelper.lazyScrollTo(".emailReports>h2", 400);
-            parameters.module = 'API';
-            parameters.method = defaultApiMethod;
+            scrollToTop();
+
+            var ajaxHandler = new ajaxHelper();
+
+            var parameters = {module: 'API', method: defaultApiMethod, format: 'json'};
             if (idReport == 0) {
                 parameters.method = 'ScheduledReports.addReport';
             }
-            parameters.format = 'json';
-            return parameters;
+
+            ajaxHandler.addParams(parameters, 'GET');
+
+            return ajaxHandler;
         }
 
         function fadeInOutSuccessMessage(selector, message) {
@@ -92,7 +100,7 @@
         // Click Add/Update Submit
         this.submitReport = function () {
             var idReport = this.editingReportId;
-            var apiParameters = getReportAjaxRequest(idReport, 'ScheduledReports.updateReport');
+            var apiParameters = {};
             apiParameters.idReport = idReport;
             apiParameters.description = this.report.description;
             apiParameters.idSegment = this.report.idsegment;
@@ -112,7 +120,7 @@
 
             apiParameters.parameters = getReportParametersFunctions[this.report.type](this.report);
 
-            var ajaxHandler = new ajaxHelper();
+            var ajaxHandler = getReportAjaxRequest(idReport, 'ScheduledReports.updateReport');
             ajaxHandler.addParams(apiParameters, 'POST');
             ajaxHandler.addParams({period: period}, 'GET');
             ajaxHandler.addParams({hour: hour}, 'GET');
@@ -124,7 +132,7 @@
                     fadeInOutSuccessMessage('#reportUpdatedSuccess', _pk_translate('ScheduledReports_ReportUpdated'));
                 });
             }
-            ajaxHandler.send(true);
+            ajaxHandler.send();
             return false;
         };
 
@@ -134,39 +142,36 @@
 
         // Email now
         this.sendReportNow = function (idReport) {
-            var parameters = getReportAjaxRequest(idReport, 'ScheduledReports.sendReport');
-            parameters.idReport = idReport;
-            parameters.force = true;
-
-            var ajaxHandler = new ajaxHelper();
-            ajaxHandler.addParams(parameters, 'POST');
+            var ajaxHandler = getReportAjaxRequest(idReport, 'ScheduledReports.sendReport');
+            ajaxHandler.addParams({idReport: idReport, force: true}, 'POST');
             ajaxHandler.setLoadingElement();
             ajaxHandler.setCallback(function (response) {
                 fadeInOutSuccessMessage('#reportSentSuccess', _pk_translate('ScheduledReports_ReportSent'));
             });
-            ajaxHandler.send(true);
+            ajaxHandler.send();
         };
 
         // Delete Report
         this.deleteReport = function (idReport) {
             function onDelete() {
-                var parameters = getReportAjaxRequest(idReport, 'ScheduledReports.deleteReport');
-                parameters.idReport = idReport;
-
-                var ajaxHandler = new ajaxHelper();
-                ajaxHandler.addParams(parameters, 'POST');
+                var ajaxHandler = getReportAjaxRequest(idReport, 'ScheduledReports.deleteReport');
+                ajaxHandler.addParams({idReport: idReport}, 'POST');
                 ajaxHandler.redirectOnSuccess();
                 ajaxHandler.setLoadingElement();
-                ajaxHandler.send(true);
+                ajaxHandler.send();
             }
 
             piwikHelper.modalConfirm('#confirm', {yes: onDelete});
         };
 
-        this.showListOfReports = function () {
+        this.showListOfReports = function (shouldScrollToTop) {
             this.showReportsList = true;
             this.showReportForm = false;
             piwik.helper.hideAjaxError();
+
+            if (typeof shouldScrollToTop === 'undefined' || !shouldScrollToTop) {
+                scrollToTop();
+            }
         };
 
         this.showAddEditForm = function () {
@@ -184,6 +189,6 @@
             formSetEditReport(reportId);
         };
 
-        this.showListOfReports();
+        this.showListOfReports(false);
     }
 })();

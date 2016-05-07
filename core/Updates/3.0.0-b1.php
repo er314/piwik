@@ -15,6 +15,7 @@ use Piwik\Container\StaticContainer;
 use Piwik\Db;
 use Piwik\DbHelper;
 use Piwik\Option;
+use Piwik\Plugins\Installation\ServerFilesGenerator;
 use Piwik\Updater;
 use Piwik\Updates;
 use Piwik\Plugins\Dashboard;
@@ -45,6 +46,10 @@ class Updates_3_0_0_b1 extends Updates
     {
         $updater->executeMigrationQueries(__FILE__, $this->getMigrationQueries($updater));
         $this->migratePluginEmailUpdateSetting();
+
+        // added .woff and woff2 whitelisted file for apache webserver
+        ServerFilesGenerator::deleteHtAccessFiles();
+        ServerFilesGenerator::createHtAccessFiles();
     }
 
     private function migratePluginEmailUpdateSetting()

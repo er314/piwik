@@ -135,7 +135,9 @@
 
         <input type="hidden" id="report_idreport" ng-model="manageScheduledReport.editingReportId">
 
-        <input id="report_submit" piwik-save-button/>
+        <input ng-value="manageScheduledReport.saveButtonTitle"
+               ng-click="manageScheduledReport.submitReport()"
+               piwik-save-button/>
 
         <div class='entityCancel'>
             {{ 'General_OrCancel'|translate("<a class='entityCancelLink' ng-click='manageScheduledReport.showListOfReports()'>","</a>")|raw }}

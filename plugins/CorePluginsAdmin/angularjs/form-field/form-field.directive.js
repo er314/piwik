@@ -26,6 +26,11 @@
             return hasUiControl(field, 'select') || hasUiControl(field, 'multiselect');
         }
 
+        function isArrayCheckboxControl(field)
+        {
+            return field.type === 'array' && hasUiControl(field, 'checkbox');
+        }
+
         function hasGroupedValues(availableValues)
         {
             if (!angular.isObject(availableValues)
@@ -91,6 +96,24 @@
                             $file.val('');
                         }
                     });
+
+                } else if (isArrayCheckboxControl(field)) {
+
+                    Materialize.updateTextFields();
+
+                    scope.$watch('formField.value', function (val, oldVal) {
+                        if (val !== oldVal && val && !oldVal && angular.isArray(val)) {
+                            // we do this only on initial check
+                            angular.forEach(field.availableOptions, function (option, index) {
+                                if (option && field.value.indexOf(option.key) !== -1) {
+                                    field.checkboxkeys[index] = true;
+                                } else {
+                                    field.checkboxkeys[index] = false;
+                                }
+                            });
+                        }
+                    });
+
 
                 } else {
                     Materialize.updateTextFields();
@@ -206,18 +229,6 @@
                 return function (scope, element, attrs) {
                     var field = scope.piwikFormField;
 
-                    if (field.type === 'array' && hasUiControl(field, 'checkbox')) {
-                        field.updateCheckboxArrayValue = function () {
-                            var values = [];
-                            for (var x in field.checkboxkeys) {
-                                if (field.checkboxkeys[x]) {
-                                    values.push(field.availableOptions[x].key);
-                                }
-                            }
-                            field.value = values;
-                        }
-                    }
-
                     if (angular.isArray(field.defaultValue)) {
                         field.defaultValue = field.defaultValue.join(',');
                     }
@@ -240,6 +251,19 @@
                     if (field.inlineHelp && field.inlineHelp.indexOf('#') === 0) {
                         inlineHelpNode = field.inlineHelp;
                         field.inlineHelp = ' '; // we make sure inline help will be shown
+                    }
+
+                    if (isArrayCheckboxControl(field)) {
+                        field.updateCheckboxArrayValue = function () {
+                            var values = [];
+                            for (var x in field.checkboxkeys) {
+                                if (field.checkboxkeys[x]) {
+                                    values.push(field.availableOptions[x].key);
+                                }
+                            }
+                            field.value = values;
+                        }
+                        field.checkboxkeys = new Array(field.availableOptions.length);
                     }
 
                     if (field.condition && scope.allSettings) {
@@ -272,7 +296,6 @@
                         }
                     });
                     scope.templateLoaded = function () {
-                        console.log('rendered');
                         $timeout(whenRendered(scope, element, inlineHelpNode));
                     };
 

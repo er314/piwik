@@ -374,7 +374,12 @@ var piwikHelper = {
      */
     lazyScrollTo: function(elem, time, forceScroll)
     {
-        var elemTop = $(elem).offset().top;
+        var $elem = $(elem);
+        if (!$elem.size()) {
+            return;
+        }
+
+        var elemTop = $elem.offset().top;
         // only scroll the page if the graph is not visible
         if (elemTop < $(window).scrollTop()
             || elemTop > $(window).scrollTop()+$(window).height()

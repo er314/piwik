@@ -4,8 +4,23 @@
 }
 
 nav {
+  background-color: @theme-color-header-background !important;
+
+  .brand-logo {
+    font-size: 28px;
+  }
+
   .icon-menu-hamburger {
     font-size: 2.7rem;
+  }
+  .languageSelection {
+    &:hover {
+      background-color: rgba(0,0,0,0.1);
+
+      .items {
+        background-color: @theme-color-background-contrast !important;
+      }
+    }
   }
 }
 
