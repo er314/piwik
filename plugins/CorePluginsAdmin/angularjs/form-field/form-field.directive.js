@@ -291,7 +291,9 @@
                             scope.formField.availableOptions = formatAvailableValues(scope.formField);
 
                             if (isSelectControl(scope.formField)) {
-                                element.find('select').material_select();
+                                $timeout(function () {
+                                    element.find('select').material_select();
+                                });
                             }
                         }
                     });

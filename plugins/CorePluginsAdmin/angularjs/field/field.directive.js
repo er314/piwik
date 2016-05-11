@@ -87,6 +87,8 @@
                     field.type = 'array';
                 } else if (field.uiControl === 'checkbox') {
                     field.type = 'boolean';
+                } else if (field.uiControl === 'site') {
+                    field.type = 'object';
                 } else {
                     field.type = 'string';
                 }
@@ -115,6 +117,12 @@
                 $scope.$watch('options', function (val, oldVal) {
                     if (val !== oldVal) {
                         $scope.field.availableValues = val;
+                    }
+                });
+
+                $scope.$watch('disabled', function (val, oldVal) {
+                    if (val !== oldVal) {
+                        $scope.field.uiControlAttributes.disabled = val;
                     }
                 });
             }

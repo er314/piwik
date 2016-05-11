@@ -28,13 +28,25 @@
                     return;
                 }
 
-                attrs.piwikAttributes = JSON.parse(attrs.piwikAttributes);
-
-                if (angular.isObject(attrs.piwikAttributes)) {
-                    angular.forEach(attrs.piwikAttributes, function (value, key) {
-                        element.attr(key, value);
-                    });
+                function applyAttributes(attributes)
+                {
+                    if (angular.isObject(attributes)) {
+                        angular.forEach(attributes, function (value, key) {
+                            if (key === 'disabled') {
+                                element.prop(key, value);
+                            } else {
+                                element.attr(key, value);
+                            }
+                        });
+                    }
                 }
+
+                applyAttributes(JSON.parse(attrs.piwikAttributes));
+
+                attrs.$observe('piwikAttributes', function (newVal) {
+                    applyAttributes(JSON.parse(newVal));
+                });
+
             }
         };
     }

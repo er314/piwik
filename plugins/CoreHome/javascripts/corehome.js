@@ -70,62 +70,6 @@
             }
         });
 
-        //
-        // section toggler behavior
-        //
-
-        var handleSectionToggle = function (self, showType, doHide) {
-            var sectionId = $(self).attr('data-section-id'),
-                section = $('#' + sectionId),
-                showText = _pk_translate('General_Show'),
-                hideText = _pk_translate('General_Hide');
-
-            if (typeof(doHide) == 'undefined') {
-                doHide = section.is(':visible');
-            }
-
-            if (doHide) {
-                var newText = $(self).text().replace(hideText, showText),
-                    afterHide = function () { $(self).text(newText); };
-
-                if (showType == 'slide') {
-                    section.slideUp(afterHide);
-                }
-                else if (showType == 'inline') {
-                    section.hide();
-                    afterHide();
-                }
-                else {
-                    section.hide(afterHide);
-                }
-            }
-            else {
-                var newText = $(self).text().replace(showText, hideText);
-                $(self).text(newText);
-
-                if (showType == 'slide') {
-                    section.slideDown();
-                }
-                else if (showType == 'inline') {
-                    section.css('display', 'inline-block');
-                }
-                else {
-                    section.show();
-                }
-            }
-        };
-
-        // when click section toggler link, toggle the visibility of the associated section
-        $('body').on('click', 'a.section-toggler-link', function (e) {
-            e.preventDefault();
-            handleSectionToggle(this, 'slide');
-            return false;
-        });
-
-        $('body').on('change', 'input.section-toggler-link', function (e) {
-            handleSectionToggle(this, 'inline', !$(this).is(':checked'));
-        });
-
     });
 
 

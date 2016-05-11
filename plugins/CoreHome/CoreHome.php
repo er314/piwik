@@ -161,6 +161,7 @@ class CoreHome extends \Piwik\Plugin
         $jsFiles[] = "plugins/CoreHome/angularjs/common/directives/dialog.js";
         $jsFiles[] = "plugins/CoreHome/angularjs/common/directives/translate.js";
         $jsFiles[] = "plugins/CoreHome/angularjs/common/directives/dropdown-button.js";
+        $jsFiles[] = "plugins/CoreHome/angularjs/common/directives/select-on-focus.js";
 
         $jsFiles[] = "plugins/CoreHome/angularjs/piwikApp.js";
         $jsFiles[] = "plugins/CoreHome/angularjs/anchorLinkFix.js";
@@ -214,6 +215,8 @@ class CoreHome extends \Piwik\Plugin
         // any angular JS file is loaded etc.
         $jsFiles[] = "plugins/CoreAdminHome/angularjs/smtp/mail-smtp.controller.js";
         $jsFiles[] = "plugins/CoreAdminHome/angularjs/branding/branding.controller.js";
+        $jsFiles[] = "plugins/CoreAdminHome/angularjs/trackingcode/jstrackingcode.controller.js";
+        $jsFiles[] = "plugins/CoreAdminHome/angularjs/trackingcode/imagetrackingcode.controller.js";
 
 
         // we have to load these CorePluginsAdmin files here. If we loaded them in CorePluginsAdmin,

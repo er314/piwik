@@ -142,6 +142,8 @@ class Controller extends ControllerAdmin
         $view->defaultSiteRevenue = Site::getCurrencySymbolFor($view->idSite);
         $view->maxCustomVariables = CustomVariables::getNumUsableCustomVariables();
 
+        $view->defaultSite = array('id' => $view->idSite, 'name' => $view->defaultReportSiteName);
+
         $allUrls = APISitesManager::getInstance()->getSiteUrlsFromId($view->idSite);
         if (isset($allUrls[1])) {
             $aliasUrl = $allUrls[1];
@@ -152,9 +154,6 @@ class Controller extends ControllerAdmin
 
         $mainUrl = Site::getMainUrlFor($view->idSite);
         $view->defaultReportSiteDomain = @parse_url($mainUrl, PHP_URL_HOST);
-
-        // get currencies for each viewable site
-        $view->currencySymbols = APISitesManager::getInstance()->getCurrencySymbols();
 
         $dntChecker = new DoNotTrackHeaderChecker();
         $view->serverSideDoNotTrackEnabled = $dntChecker->isActive();

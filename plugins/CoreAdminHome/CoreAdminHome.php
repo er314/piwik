@@ -83,5 +83,6 @@ class CoreAdminHome extends \Piwik\Plugin
         $translationKeys[] = 'CoreAdminHome_ProtocolNotDetectedCorrectly';
         $translationKeys[] = 'CoreAdminHome_ProtocolNotDetectedCorrectlySolution';
         $translationKeys[] = 'CoreAdminHome_SettingsSaveSuccess';
+        $translationKeys[] = 'UserCountryMap_None';
     }
 }

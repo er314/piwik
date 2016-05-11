@@ -2,9 +2,10 @@
 
     <h3 ng-if="formField.introduction" class="col s12">{{ formField.introduction }}</h3>
 
-    <div class="col s12 m6" ng-class="{'input-field': formField.uiControl != 'checkbox' && formField.uiControl != 'radio', 'file-field': formField.uiControl == 'file'}">
-
-        <div ng-include="formField.templateFile" onload="templateLoaded()"></div>
+    <div class="col s12 m6"
+         ng-class="{'input-field': formField.uiControl != 'checkbox' && formField.uiControl != 'radio', 'file-field': formField.uiControl == 'file'}"
+         ng-include="formField.templateFile" onload="templateLoaded()"
+    >
 
     </div>
     <div class="col s12 m6">

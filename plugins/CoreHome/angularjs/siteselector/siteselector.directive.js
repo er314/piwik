@@ -64,7 +64,10 @@
                 }
 
                 return function (scope, element, attrs, ngModel) {
-                    scope.selectedSite = {id: attrs.siteid, name: attrs.sitename};
+                    if (attrs.siteid && attrs.sitename) {
+                        scope.selectedSite = {id: attrs.siteid, name: attrs.sitename};
+                    }
+
                     scope.model.onlySitesWithAdminAccess = scope.onlySitesWithAdminAccess;
 
                     if (ngModel) {
@@ -80,7 +83,11 @@
 
                     if (ngModel) {
                         ngModel.$render = function() {
-                            scope.selectedSite = ngModel.$viewValue;
+                            if (angular.isString(ngModel.$viewValue)) {
+                                scope.selectedSite = JSON.parse(ngModel.$viewValue);
+                            } else {
+                                scope.selectedSite = ngModel.$viewValue;
+                            }
                         };
                     }
 
