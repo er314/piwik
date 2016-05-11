@@ -209,6 +209,7 @@ class CoreHome extends \Piwik\Plugin
         $jsFiles[] = "plugins/CoreHome/angularjs/quick-access/quick-access.directive.js";
 
         $jsFiles[] = "plugins/CoreHome/angularjs/selector/selector.directive.js";
+        $jsFiles[] = "plugins/CoreHome/angularjs/content-table/content-table.directive.js";
 
         // we have to load these CoreAdminHome files here. If we loaded them in CoreAdminHome,
         // there would be JS errors as CoreAdminHome is loaded first. Meaning it is loaded before
@@ -228,6 +229,11 @@ class CoreHome extends \Piwik\Plugin
         $jsFiles[] = "plugins/CorePluginsAdmin/angularjs/form-field/form-field.directive.js";
         $jsFiles[] = "plugins/CorePluginsAdmin/angularjs/field/field.directive.js";
         $jsFiles[] = "plugins/CorePluginsAdmin/angularjs/save-button/save-button.directive.js";
+        $jsFiles[] = "plugins/CorePluginsAdmin/angularjs/plugins/plugin-filter.directive.js";
+        $jsFiles[] = "plugins/CorePluginsAdmin/angularjs/plugins/plugin-name.directive.js";
+        $jsFiles[] = "plugins/CorePluginsAdmin/angularjs/plugins/plugin-management.directive.js";
+        $jsFiles[] = "plugins/CorePluginsAdmin/angularjs/marketplace/marketplace.controller.js";
+        $jsFiles[] = "plugins/CorePluginsAdmin/angularjs/marketplace/marketplace.directive.js";
         $jsFiles[] = "plugins/CoreHome/javascripts/iframeResizer.min.js";
     }
 

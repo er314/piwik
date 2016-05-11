@@ -19,6 +19,7 @@
  * name=""
  * autocomplete="off"
  * disabled="true"
+ * full-width="true"
  * templateFile=""></div>
  *
  * templateFile allows to render a custom template
@@ -50,7 +51,8 @@
                 varType: '@',
                 autofocus: '@',
                 tabindex: '@',
-                templateFile: '@'
+                templateFile: '@',
+                fullWidth: '@'
             },
             template: '<div piwik-form-field="field"></div>',
             link: function(scope, elm, attrs, ctrl) {
@@ -102,6 +104,7 @@
                 field.templateFile = $scope.templateFile;
                 field.title = $scope.title;
                 field.uiControlAttributes = {};
+                field.fullWidth = !!$scope.fullWidth;
 
                 var i = 0, attribute;
                 var attributes = ['disabled', 'autocomplete', 'tabindex', 'autofocus'];

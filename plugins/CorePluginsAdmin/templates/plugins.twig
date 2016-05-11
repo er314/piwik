@@ -5,17 +5,17 @@
 {% set title %}{{ 'CorePluginsAdmin_PluginsManagement'|translate }}{% endset %}
 
 {% block content %}
-<div class="pluginsManagement">
 
-    {% if pluginsHavingUpdate|length %}
-        <h2>{{ pluginsHavingUpdate|length }} Update(s) available</h2>
+{% if pluginsHavingUpdate|length %}
+    <div piwik-content-block content-title="{{ pluginsHavingUpdate|length }} Update(s) available">
 
         <p>{{ 'CorePluginsAdmin_InfoPluginUpdateIsRecommended'|translate }}</p>
 
         {{ plugins.tablePluginUpdates(pluginsHavingUpdate, updateNonce, activateNonce, 0) }}
-    {% endif %}
+    </div>
+{% endif %}
 
-    <h2 piwik-enriched-headline>{{ title }}</h2>
+<div piwik-content-block content-title="{{ title|e('html_attr') }}" feature="true" piwik-plugin-management>
 
     <p>{{ 'CorePluginsAdmin_PluginsExtendPiwik'|translate }}
         {{ 'CorePluginsAdmin_OncePluginIsInstalledYouMayActivateHere'|translate }}
@@ -33,4 +33,5 @@
     {{ plugins.tablePlugins(pluginsInfo, pluginNamesHavingSettings, activateNonce, deactivateNonce, uninstallNonce, false, marketplacePluginNames, isPluginsAdminEnabled) }}
 
 </div>
+
 {% endblock %}

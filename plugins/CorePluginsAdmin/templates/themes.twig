@@ -5,23 +5,21 @@
 {% set title %}{{ 'CorePluginsAdmin_ThemesManagement'|translate }}{% endset %}
 
 {% block content %}
-<div style="max-width:980px;">
 
-    <h2 piwik-enriched-headline>{{ title }}</h2>
+<div piwik-content-block content-title="{{ title|e('html_attr') }}" feature="true" piwik-plugin-management>
 
-    <p>{{ 'CorePluginsAdmin_ThemesDescription'|translate }}
-    {% if otherUsersCount > 0 %}
-        <br/> {{ 'CorePluginsAdmin_InfoThemeIsUsedByOtherUsersAsWell'|translate(otherUsersCount, themeEnabled) }}
-    {% endif %}
-    {% if not isPluginsAdminEnabled %}
-        <br/>{{ 'CorePluginsAdmin_DoMoreContactPiwikAdmins'|translate }}
-    {% endif %}
-
+    <p>
+        {{ 'CorePluginsAdmin_ThemesDescription'|translate }}
+        {% if otherUsersCount > 0 %}
+            <br/> {{ 'CorePluginsAdmin_InfoThemeIsUsedByOtherUsersAsWell'|translate(otherUsersCount, themeEnabled) }}
+        {% endif %}
+        {% if not isPluginsAdminEnabled %}
+            <br/>{{ 'CorePluginsAdmin_DoMoreContactPiwikAdmins'|translate }}
+        {% endif %}
     </p>
 
     {{ plugins.pluginsFilter(true, isMarketplaceEnabled) }}
 
     {{ plugins.tablePlugins(pluginsInfo, pluginNamesHavingSettings, activateNonce, deactivateNonce, uninstallNonce, true, marketplacePluginNames, isPluginsAdminEnabled ) }}
-
 </div>
 {% endblock %}

@@ -1,8 +1,11 @@
 <div id='entityEditContainer' class="entityTableContainer"
+     piwik-content-block
+     content-title="{{ title|e('html_attr') }}"
+     help-url="http://piwik.org/docs/email-reports/"
+     feature="true"
      ng-show="manageScheduledReport.showReportsList">
-    <h2 piwik-enriched-headline help-url="http://piwik.org/docs/email-reports/">{{ title }}</h2>
 
-    <table class="dataTable entityTable">
+    <table piwik-content-table>
         <thead>
         <tr>
             <th class="first">{{ 'General_Description'|translate }}</th>

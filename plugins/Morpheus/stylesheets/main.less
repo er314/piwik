@@ -53,21 +53,6 @@ h3 {
     width: 50%;
 }
 
-.entityTable {
-    .border-radius(0px)!important;
-    tr {
-        &.first {
-            th {
-                border-left: 0px !important;
-            }
-        }
-    }
-}
-
-table.entityTable tr td a:hover {
-    text-decoration: underline !important;
-}
-
 #root {
     margin: 0 0 100px 0;
     padding: 0;
@@ -391,22 +376,6 @@ table.dataTable {
         .cellSubDataTable tr:hover td {
           background-color: @color-silver-l95;
         }
-      }
-    }
-
-    &.entityTable tr {
-        td  {
-            background-color: @theme-color-background-contrast !important;
-        }
-        &.inactive-plugin td {
-          background-color: @theme-color-background-base !important;
-        }
-
-    }
-
-    &.entityTable:not(.noRowHover) tr {
-      &:hover td {
-        background-color: @theme-color-background-base !important;
       }
     }
 

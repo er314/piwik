@@ -168,12 +168,12 @@
                         <td id="last_seen">{% if user.last_seen is empty %}-{% else %}{{ 'General_TimeAgo'|translate(user.last_seen)|raw }}{% endif %}</td>
                         {% endif %}
                         <td class="text-center">
-                            <button class="edituser btn btn-flat" id="row{{ i }}" title="{{ 'General_Edit'|translate }}">
+                            <button class="edituser table-action" id="row{{ i }}" title="{{ 'General_Edit'|translate }}">
                                 <span class="icon-edit"></span>
                             </button>
                         </td>
                         <td class="text-center">
-                            <button class="deleteuser btn btn-flat" id="row{{ i }}" title="{{ 'General_Delete'|translate }}">
+                            <button class="deleteuser table-action" id="row{{ i }}" title="{{ 'General_Delete'|translate }}">
                                 <span class="icon-delete"></span>
                             </button>
                         </td>
@@ -182,12 +182,13 @@
             {% endfor %}
             </tbody>
         </table>
-        <p>
-            <button class="add-user btn-large btn-flat">
+
+        <div class="tableActionBar">
+            <button class="add-user">
                 <span class="icon-add"></span>
                 {{ 'UsersManager_AddUser'|translate }}
             </button>
-        </p>
+        </div>
     </div>
 
     <h2 id="super_user_access">{{ 'UsersManager_SuperUserAccessManagement'|translate }}</h2>
