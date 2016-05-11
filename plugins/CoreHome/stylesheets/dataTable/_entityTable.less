@@ -4,6 +4,10 @@ table.entityTable {
   thead {
     tr {
       th {
+        &:first-child {
+          padding-left: 20px;
+        }
+
         text-transform: none;
         background-color: @theme-color-background-tinyContrast;
         vertical-align: middle !important;
@@ -32,6 +36,10 @@ table.entityTable {
       }
 
       td {
+        &:first-child {
+          padding-left: 20px;
+        }
+
         color: @theme-color-text;
         font-size: 13px;
         line-height: 16px;
@@ -39,7 +47,7 @@ table.entityTable {
         vertical-align: top !important;
         padding: 16px;
         border-bottom: 1px solid @theme-color-background-tinyContrast !important;
-
+        border-radius: 0;
 
         a {
           color: @theme-color-link;
