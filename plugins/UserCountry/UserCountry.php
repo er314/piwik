@@ -76,6 +76,10 @@ class UserCountry extends \Piwik\Plugin
     public function getJsFiles(&$jsFiles)
     {
         $jsFiles[] = "plugins/UserCountry/javascripts/userCountry.js";
+        $jsFiles[] = "plugins/UserCountry/angularjs/location-provider-selection/location-provider-selection.controller.js";
+        $jsFiles[] = "plugins/UserCountry/angularjs/location-provider-selection/location-provider-selection.directive.js";
+        $jsFiles[] = "plugins/UserCountry/angularjs/location-provider-updater/location-provider-updater.controller.js";
+        $jsFiles[] = "plugins/UserCountry/angularjs/location-provider-updater/location-provider-updater.directive.js";
     }
 
     /**

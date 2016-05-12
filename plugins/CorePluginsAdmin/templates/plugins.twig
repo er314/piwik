@@ -6,6 +6,25 @@
 
 {% block content %}
 
+<h2 piwik-enriched-headline>
+    {{ title|e('html_attr') }}
+</h2>
+
+<p>{{ 'CorePluginsAdmin_PluginsExtendPiwik'|translate }}
+    {{ 'CorePluginsAdmin_OncePluginIsInstalledYouMayActivateHere'|translate }}
+
+    {% if isMarketplaceEnabled %}
+        {{ 'CorePluginsAdmin_TeaserExtendPiwikByPlugin'|translate('<a href="' ~ linkTo({'action':'browsePlugins', 'sort': ''}) ~ '">', '</a>')|raw }}
+    {% endif %}
+
+    {% if not isPluginsAdminEnabled %}
+        <br/>{{ 'CorePluginsAdmin_DoMoreContactPiwikAdmins'|translate }}
+    {% endif %}
+
+    <br />
+    {{ 'CorePluginsAdmin_ChangeLookByManageThemes'|translate('<a href="' ~ linkTo({'action': 'themes'}) ~'">', '</a>')|raw }}
+</p>
+
 {% if pluginsHavingUpdate|length %}
     <div piwik-content-block content-title="{{ pluginsHavingUpdate|length }} Update(s) available">
 
@@ -15,20 +34,9 @@
     </div>
 {% endif %}
 
-<div piwik-content-block content-title="{{ title|e('html_attr') }}" feature="true" piwik-plugin-management>
+<div piwik-content-block content-title="{{ 'CorePluginsAdmin_InstalledPlugins'|translate|e('html_attr') }}" piwik-plugin-management>
 
-    <p>{{ 'CorePluginsAdmin_PluginsExtendPiwik'|translate }}
-        {{ 'CorePluginsAdmin_OncePluginIsInstalledYouMayActivateHere'|translate }}
-
-    {% if not isPluginsAdminEnabled %}
-        <br/>{{ 'CorePluginsAdmin_DoMoreContactPiwikAdmins'|translate }}
-    {% endif %}
-
-        <br />
-        {{ 'CorePluginsAdmin_ChangeLookByManageThemes'|translate('<a href="' ~ linkTo({'action': 'themes'}) ~'">', '</a>')|raw }}
-    </p>
-
-    {{ plugins.pluginsFilter(false, isMarketplaceEnabled) }}
+    {{ plugins.pluginsFilter() }}
 
     {{ plugins.tablePlugins(pluginsInfo, pluginNamesHavingSettings, activateNonce, deactivateNonce, uninstallNonce, false, marketplacePluginNames, isPluginsAdminEnabled) }}
 

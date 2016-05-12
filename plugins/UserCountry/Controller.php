@@ -48,6 +48,10 @@ class Controller extends \Piwik\Plugin\ControllerAdmin
         $view->thisIP = IP::getIpFromHeader();
         $geoIPDatabasesInstalled = GeoIp::isDatabaseInstalled();
         $view->geoIPDatabasesInstalled = $geoIPDatabasesInstalled;
+        $view->updatePeriodOptions = array(
+            'month' => Piwik::translate('Intl_PeriodMonth'),
+            'week' => Piwik::translate('Intl_PeriodWeek')
+        );
 
         // check if there is a working provider (that isn't the default one)
         $isThereWorkingProvider = false;

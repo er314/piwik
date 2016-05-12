@@ -236,7 +236,6 @@ class Visualization extends ViewDataTable
         $view->properties  = array_merge($this->requestConfig->getProperties(), $this->config->getProperties());
         $view->reportLastUpdatedMessage = $this->reportLastUpdatedMessage;
         $view->footerIcons = $this->config->footer_icons;
-        $view->showTitle = Common::getRequestVar('showtitle', 0, 'int');
         $view->isWidget    = Common::getRequestVar('widget', 0, 'int');
 
         return $view->render();

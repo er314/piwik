@@ -32,7 +32,8 @@ class Widgetize extends \Piwik\Plugin
         $jsFiles[] = "plugins/Morpheus/javascripts/morpheus.js";
         $jsFiles[] = "plugins/CoreHome/javascripts/dataTable.js";
         $jsFiles[] = "plugins/Dashboard/javascripts/widgetMenu.js";
-        $jsFiles[] = "plugins/Widgetize/javascripts/widgetize.js";
+        $jsFiles[] = "plugins/Widgetize/angularjs/widget-preview/widget-preview.directive.js";
+        $jsFiles[] = "plugins/Widgetize/angularjs/export-widget/export-widget.controller.js";
     }
 
     public function getStylesheetFiles(&$stylesheets)

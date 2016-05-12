@@ -328,6 +328,7 @@ class Config
     public $show_tag_cloud = true;
 
     public $show_as_card = true;
+    public $show_title = true;
 
     /**
      * Controls whether the user is allowed to export data as an RSS feed or not.
@@ -463,6 +464,8 @@ class Config
             Metrics::getDefaultMetrics(),
             Metrics::getDefaultProcessedMetrics()
         );
+
+        $this->show_title = Common::getRequestVar('showtitle', 0, 'int');
     }
 
     /**

@@ -17,30 +17,41 @@ body {
 
 h2 {
     font-weight: normal;
-    border-bottom: 1px solid @color-gray;
     margin: 15px -15px 20px 0;
     font-size: 24px;
     width: 100%;
     a, a:hover {
         text-decoration: none;
-        color: @color-black-piwik;
+        color: @theme-color-text;
     }
 }
 h3 {
-    color: @theme-color-text;
+    color: @theme-color-headline-alternative;
     .font-default(18px, 24px);
     font-weight: normal;
+    margin: 32px 0 16px 0;
 }
+
 .pageWrap a:hover {
     text-decoration:underline;
 }
 
 #content {
     p {
-        margin-left: 0px;
-        margin-right: 0px;
+        color: @theme-color-headline-alternative;
+        margin-left: 0;
+        margin-right: 0;
         .font-default(13px, 18px);
     }
+}
+
+#content {
+  .card-content {
+    p {
+      color: @theme-color-text;
+    }
+  }
+
 }
 
 #leftcolumn {

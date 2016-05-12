@@ -352,45 +352,45 @@
         switch (layout) {
             case '100':
                 $('.col', dashboardElement).removeClass()
-                    .addClass('col col-sm-12');
+                    .addClass('col s12');
                 break;
             case '50-50':
                 $('.col', dashboardElement).removeClass()
-                    .addClass('col col-sm-6');
+                    .addClass('col s6');
                 break;
             case '67-33':
-                $('.col', dashboardElement)[0].className = 'col col-sm-8';
-                $('.col', dashboardElement)[1].className = 'col col-sm-4';
+                $('.col', dashboardElement)[0].className = 'col s8';
+                $('.col', dashboardElement)[1].className = 'col s4';
                 break;
             case '33-67':
-                $('.col', dashboardElement)[0].className = 'col col-sm-4';
-                $('.col', dashboardElement)[1].className = 'col col-sm-8';
+                $('.col', dashboardElement)[0].className = 'col s4';
+                $('.col', dashboardElement)[1].className = 'col s8';
                 break;
             case '33-33-33':
-                $('.col', dashboardElement)[0].className = 'col col-sm-4';
-                $('.col', dashboardElement)[1].className = 'col col-sm-4';
-                $('.col', dashboardElement)[2].className = 'col col-sm-4';
+                $('.col', dashboardElement)[0].className = 'col s4';
+                $('.col', dashboardElement)[1].className = 'col s4';
+                $('.col', dashboardElement)[2].className = 'col s4';
                 break;
             case '40-30-30':
-                $('.col', dashboardElement)[0].className = 'col col-sm-6';
-                $('.col', dashboardElement)[1].className = 'col col-sm-3';
-                $('.col', dashboardElement)[2].className = 'col col-sm-3';
+                $('.col', dashboardElement)[0].className = 'col s6';
+                $('.col', dashboardElement)[1].className = 'col s3';
+                $('.col', dashboardElement)[2].className = 'col s3';
                 break;
             case '30-40-30':
-                $('.col', dashboardElement)[0].className = 'col col-sm-3';
-                $('.col', dashboardElement)[1].className = 'col col-sm-6';
-                $('.col', dashboardElement)[2].className = 'col col-sm-3';
+                $('.col', dashboardElement)[0].className = 'col s3';
+                $('.col', dashboardElement)[1].className = 'col s6';
+                $('.col', dashboardElement)[2].className = 'col s3';
                 break;
             case '30-30-40':
-                $('.col', dashboardElement)[0].className = 'col col-sm-3';
-                $('.col', dashboardElement)[1].className = 'col col-sm-3';
-                $('.col', dashboardElement)[2].className = 'col col-sm-6';
+                $('.col', dashboardElement)[0].className = 'col s3';
+                $('.col', dashboardElement)[1].className = 'col s3';
+                $('.col', dashboardElement)[2].className = 'col s6';
                 break;
             case '25-25-25-25':
-                $('.col', dashboardElement)[0].className = 'col col-sm-3';
-                $('.col', dashboardElement)[1].className = 'col col-sm-3';
-                $('.col', dashboardElement)[2].className = 'col col-sm-3';
-                $('.col', dashboardElement)[3].className = 'col col-sm-3';
+                $('.col', dashboardElement)[0].className = 'col s3';
+                $('.col', dashboardElement)[1].className = 'col s3';
+                $('.col', dashboardElement)[2].className = 'col s3';
+                $('.col', dashboardElement)[3].className = 'col s3';
                 break;
         }
 

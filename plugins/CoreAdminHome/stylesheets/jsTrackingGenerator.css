@@ -1,6 +1,4 @@
 #javascript-output-section textarea, #image-link-output-section textarea {
-    width: 100%;
-    display: block;
     font-family: "Courier New", Courier, monospace;
 }
 
@@ -12,9 +10,6 @@
     height: 92px;
 }
 
-#image-tracking-text {
-    padding-top: 10px;
-}
 
 #image-tracking-goal-sub .row,
 #javascript-tracking-visitor-cv .row,

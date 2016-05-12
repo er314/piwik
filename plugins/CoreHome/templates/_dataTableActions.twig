@@ -2,7 +2,7 @@
 
 <div class="dataTableControls">
 
-    {% if properties.documentation|default is not empty or reportLastUpdatedMessage is defined %}
+    {% if (properties.documentation|default is not empty) or (reportLastUpdatedMessage is defined and reportLastUpdatedMessage) %}
     <a class='dropdown-button dataTableAction'
        onclick="$(this).closest('.dataTable').find('.reportDocumentation').toggle(); return false;"
         href='javascript:;' title="{{ properties.documentation|e('html_attr') }}"

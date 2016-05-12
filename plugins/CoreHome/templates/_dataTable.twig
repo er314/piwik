@@ -4,7 +4,7 @@
 
 {% set isDataTableEmpty = (dataTable is empty or dataTableHasNoData|default(false)) %}
 
-{% if (properties.show_as_card and showTitle and not isWidget)  %}
+{% if (properties.show_as_card and properties.show_title and not isWidget)  %}
 <div class="card">
 <div class="card-content">
     {% if properties.title %}
@@ -12,7 +12,7 @@
               piwik-enriched-headline
         >{{ properties.title }}</span>
     {% endif %}
-{% elseif properties.title and showTitle and not isWidget %}
+{% elseif properties.title and properties.show_title and not isWidget %}
     <h2>{{ properties.title }}</h2>
 {% endif %}
 
@@ -36,7 +36,7 @@
 
     <div class="reportDocumentation">
         {% if properties.documentation|default is not empty %}<p>{{ properties.documentation|raw }}</p>{% endif %}
-        {% if reportLastUpdatedMessage is defined %}<span class='helpDate'>{{ reportLastUpdatedMessage|raw }}</span>{% endif %}
+        {% if reportLastUpdatedMessage is defined and reportLastUpdatedMessage %}<span class='helpDate'>{{ reportLastUpdatedMessage|raw }}</span>{% endif %}
     </div>
     <div class="dataTableWrapper">
         {% if error is defined %}
