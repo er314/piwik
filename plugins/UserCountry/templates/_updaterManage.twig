@@ -1,15 +1,17 @@
-<div id="geoipdb-update-info" {% if not geoIPDatabasesInstalled %}style="display:none;"{% endif %}>
+<div ng-show="locationUpdater.geoipDatabaseInstalled" id="geoipdb-update-info">
     <p>
 		{{ 'UserCountry_GeoIPUpdaterInstructions'|translate('<a href="http://www.maxmind.com/en/download_files?rId=piwik" _target="blank">','</a>',
         '<a href="http://www.maxmind.com/?rId=piwik">','</a>')|raw }}
         <br/><br/>
 		{{ 'UserCountry_GeoLiteCityLink'|translate("<a href='"~geoLiteUrl~"'>",geoLiteUrl,'</a>')|raw }}
-		{% if geoIPDatabasesInstalled %}
-		<br/><br/>{{ 'UserCountry_GeoIPUpdaterIntro'|translate }}:
-		{% endif %}
+
+		<span ng-show="locationUpdater.geoipDatabaseInstalled">
+			<br/><br/>{{ 'UserCountry_GeoIPUpdaterIntro'|translate }}:
+		</span>
 	</p>
 
 	<div piwik-field uicontrol="text" name="geoip-location-db"
+		 ng-model="locationUpdater.locationDbUrl"
 		 introduction="{{ 'UserCountry_LocationDatabase'|translate|e('html_attr') }}"
 		 title="{{ 'Actions_ColumnDownloadURL'|translate|e('html_attr') }}"
 		 value="{{ geoIPLocUrl }}"
@@ -17,12 +19,14 @@
 	</div>
 
 	<div piwik-field uicontrol="text" name="geoip-isp-db"
+		 ng-model="locationUpdater.ispDbUrl"
 		 introduction="{{ 'UserCountry_ISPDatabase'|translate|e('html_attr') }}"
 		 title="{{ 'Actions_ColumnDownloadURL'|translate|e('html_attr') }}"
 		 value="{{ geoIPIspUrl }}">
 	</div>
 
 	<div piwik-field uicontrol="text" name="geoip-org-db"
+		 ng-model="locationUpdater.orgDbUrl"
 		 introduction="{{ 'UserCountry_OrgDatabase'|translate|e('html_attr') }}"
 		 title="{{ 'Actions_ColumnDownloadURL'|translate|e('html_attr') }}"
 		 value="{{ geoIPOrgUrl }}">
@@ -41,6 +45,7 @@
 	</div>
 
 	<div piwik-field uicontrol="radio" name="geoip-update-period"
+		 ng-model="locationUpdater.updatePeriod"
 		 introduction="{{ 'UserCountry_DownloadNewDatabasesEvery'|translate|e('html_attr') }}"
 		 value="{{ geoIPUpdatePeriod }}"
 		 options="{{ updatePeriodOptions|json_encode }}"
@@ -49,14 +54,17 @@
 
 	<input type="button"
 		   class="btn"
-		   value="{% if not geoIPDatabasesInstalled %}{{ 'General_Continue'|translate }}{% else %}{{ 'General_Save'|translate }}{% endif %}"
-		   id="update-geoip-links"/>
+		   ng-click="locationUpdater.saveGeoIpLinks()"
+		   ng-value="locationUpdater.buttonUpdateSaveText"/>
 
-	<div style="display:inline-block;width:700px;">
+	<div>
 		<div id="done-updating-updater"></div>
 		<div id="geoipdb-update-info-error"></div>
-		<div id="geoip-progressbar-container" style="display:none;">
-			<div id="geoip-updater-progressbar"></div>
+		<div id="geoip-progressbar-container" ng-show="locationUpdater.isUpdatingGeoIpDatabase">
+			<div class="progress">
+				<div class="determinate" style="width: 0"
+					 ng-style="{width: (locationUpdater.progressUpdateDownload + '%')}"></div>
+			</div>
 			<span id="geoip-updater-progressbar-label"></span>
 		</div>
 	</div>

@@ -7,50 +7,87 @@
 (function () {
     angular.module('piwikApp').controller('LocationProviderUpdaterController', LocationProviderUpdaterController);
 
-    LocationProviderUpdaterController.$inject = [];
+    LocationProviderUpdaterController.$inject = ['piwikApi'];
 
-    function LocationProviderUpdaterController() {
+    function LocationProviderUpdaterController(piwikApi) {
         // remember to keep controller very simple. Create a service/factory (model) if needed
+        var self = this;
+
+        this.buttonUpdateSaveText = _pk_translate('General_Save');
+
+        // geoip database wizard
+        var downloadNextChunk = function (action, thisId, progressBarId, cont, extraData, callback) {
+            var data = {};
+            for (var k in extraData) {
+                data[k] = extraData[k];
+            }
+
+            piwikApi.withTokenInUrl();
+            piwikApi.post({
+                module: 'UserCountry',
+                action: action,
+                'continue': cont ? 1 : 0
+            }, data).then(function (response) {
+                if (!response || response.error) {
+                    callback(response);
+                } else {
+                    // update progress bar
+                    var newProgressVal = Math.ceil((response.current_size / response.expected_file_size) * 100);
+                    self[progressBarId] = Math.min(newProgressVal, 100);
+
+                    // if incomplete, download next chunk, otherwise, show updater manager
+                    if (newProgressVal < 100) {
+                        downloadNextChunk(action, thisId, progressBarId, true, extraData, callback);
+                    } else {
+                        callback(response);
+                    }
+                }
+            }, function () {
+                callback({error: _pk_translate('UserCountry_FatalErrorDuringDownload')});
+            });
+        };
 
         this.startDownloadFreeGeoIp = function () {
-            $('#geoipdb-screen1').hide("slide", {direction: "left"}, 800, function () {
-                $('#geoipdb-screen2-download').fadeIn(1000);
+            this.showFreeDownload = true;
+            this.showPiwikNotManagingInfo = false;
 
-                // start download of free dbs
-                downloadNextChunk(
-                    'downloadFreeGeoIPDB',
-                    'geoipdb-screen2-download',
-                    'geoip-download-progress',
-                    false,
-                    {},
-                    function (response) {
-                        if (response.error) {
-                            // on error, show error & stop downloading
-                            $('#geoipdb-screen2-download').fadeOut(1000, function () {
-                                $('#manage-geoip-dbs').html(response.error);
-                            });
-                        }
-                        else {
-                            $('#geoipdb-screen2-download').fadeOut(1000, function () {
-                                $('#manage-geoip-dbs').html(response.next_screen);
-                            });
-                        }
+            this.progressFreeDownload = 0;
+
+            // start download of free dbs
+            downloadNextChunk(
+                'downloadFreeGeoIPDB',
+                'geoipdb-screen2-download',
+                'progressFreeDownload',
+                false,
+                {},
+                function (response) {
+                    if (response.error) {
+                        $('#geoipdb-update-info').html(response.error);
+                        self.geoipDatabaseInstalled = true;
+                    } else {
+                        self.showGeoIpUpdateInfo();
                     }
-                );
-            });
-        };
-        this.startAutomaticUpdateGeoIp = function () {
-            $('#geoipdb-screen1').hide("slide", {direction: "left"}, 800, function () {
-                $('#geoip-db-mangement .card-title').text(_pk_translate('UserCountry_SetupAutomaticUpdatesOfGeoIP'));
-                $('#geoipdb-update-info').fadeIn(1000);
-            });
+                }
+            );
         };
 
-        this.updateGeoIpLinks = function () {
+        this.startAutomaticUpdateGeoIp = function () {
+            this.buttonUpdateSaveText = _pk_translate('General_Continue');
+            this.showGeoIpUpdateInfo();
+        };
+
+        this.showGeoIpUpdateInfo = function () {
+            this.geoipDatabaseInstalled = true;
+
+            // todo we need to replace this the proper way eventually
+            $('#geoip-db-mangement .card-title').text(_pk_translate('UserCountry_SetupAutomaticUpdatesOfGeoIP'));
+        }
+
+        this.saveGeoIpLinks = function () {
             var currentDownloading = null;
             var updateGeoIPSuccess = function (response) {
                 if (response && response.error) {
-                    $('#geoip-progressbar-container').hide();
+                    self.isUpdatingGeoIpDatabase = false;
 
                     var UI = require('piwik/UI');
                     var notification = new UI.Notification();
@@ -61,24 +98,23 @@
                         id: 'userCountryGeoIpUpdate'
                     });
 
-                }
-                else if (response && response.to_download) {
+                } else if (response && response.to_download) {
                     var continuing = currentDownloading == response.to_download;
                     currentDownloading = response.to_download;
 
                     // show progress bar w/ message
-                    $('#geoip-updater-progressbar').progressbar('option', 'value', 1);
+                    self.progressUpdateDownload = 0;
                     $('#geoip-updater-progressbar-label').html(response.to_download_label);
-                    $('#geoip-progressbar-container').show();
+                    self.isUpdatingGeoIpDatabase = true;
 
                     // start/continue download
                     downloadNextChunk(
-                        'downloadMissingGeoIpDb', 'geoipdb-update-info', 'geoip-updater-progressbar',
+                        'downloadMissingGeoIpDb', 'geoipdb-update-info', 'progressUpdateDownload',
                         continuing, {key: response.to_download}, updateGeoIPSuccess);
-                }
-                else {
+
+                } else {
                     $('#geoip-updater-progressbar-label').html('');
-                    $('#geoip-progressbar-container').hide();
+                    self.isUpdatingGeoIpDatabase = false;
 
                     var UI = require('piwik/UI');
                     var notification = new UI.Notification();
@@ -95,65 +131,18 @@
                 }
             };
 
-            // setup the auto-updater
-            var ajaxRequest = new ajaxHelper();
-            var periodSelected = $('#geoip-update-period-cell').find('input:checked').val();
-            ajaxRequest.addParams({
-                period: periodSelected
-            }, 'get');
-            ajaxRequest.addParams({
+            piwikApi.withTokenInUrl();
+            piwikApi.post({
+                period: this.updatePeriod,
                 module: 'UserCountry',
                 action: 'updateGeoIPLinks',
-                token_auth: piwik.token_auth,
-                loc_db: $('#geoip-location-db').val(),
-                isp_db: $('#geoip-isp-db').val(),
-                org_db: $('#geoip-org-db').val()
-            }, 'post');
-            ajaxRequest.withTokenInUrl();
-            ajaxRequest.setCallback(updateGeoIPSuccess);
-            ajaxRequest.send();
+            }, {
+                loc_db: this.locationDbUrl,
+                isp_db: this.ispDbUrl,
+                org_db: this.orgDbUrl
+            }).then(updateGeoIPSuccess);
         };
 
-        $('#geoip-download-progress,#geoip-updater-progressbar').progressbar({value: 1});
-
-        // geoip database wizard
-        var downloadNextChunk = function (action, thisId, progressBarId, cont, extraData, callback) {
-            var data = {
-                module: 'UserCountry',
-                action: action,
-                'continue': cont ? 1 : 0
-            };
-            for (var k in extraData) {
-                data[k] = extraData[k];
-            }
-
-            var ajaxRequest = new ajaxHelper();
-            ajaxRequest.addParams(data, 'post');
-            ajaxRequest.withTokenInUrl();
-            ajaxRequest.setCallback(function (response) {
-                if (!response || response.error) {
-                    callback(response);
-                }
-                else {
-                    // update progress bar
-                    var newProgressVal = Math.ceil((response.current_size / response.expected_file_size) * 100);
-                    newProgressVal = Math.min(newProgressVal, 100);
-                    $('#' + progressBarId).progressbar('option', 'value', newProgressVal);
-
-                    // if incomplete, download next chunk, otherwise, show updater manager
-                    if (newProgressVal < 100) {
-                        downloadNextChunk(action, thisId, progressBarId, true, extraData, callback);
-                    }
-                    else {
-                        callback(response);
-                    }
-                }
-            });
-            ajaxRequest.setErrorCallback(function () {
-                callback({error: _pk_translate('UserCountry_FatalErrorDuringDownload')});
-            });
-            ajaxRequest.send();
-        };
 
     }
 })();
