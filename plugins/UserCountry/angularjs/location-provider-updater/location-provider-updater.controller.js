@@ -14,6 +14,7 @@
         var self = this;
 
         this.buttonUpdateSaveText = _pk_translate('General_Save');
+        this.progressUpdateLabel = '';
 
         // geoip database wizard
         var downloadNextChunk = function (action, thisId, progressBarId, cont, extraData, callback) {
@@ -104,7 +105,7 @@
 
                     // show progress bar w/ message
                     self.progressUpdateDownload = 0;
-                    $('#geoip-updater-progressbar-label').html(response.to_download_label);
+                    self.progressUpdateLabel = response.to_download_label;
                     self.isUpdatingGeoIpDatabase = true;
 
                     // start/continue download
@@ -113,7 +114,7 @@
                         continuing, {key: response.to_download}, updateGeoIPSuccess);
 
                 } else {
-                    $('#geoip-updater-progressbar-label').html('');
+                    self.progressUpdateLabel = '';
                     self.isUpdatingGeoIpDatabase = false;
 
                     var UI = require('piwik/UI');

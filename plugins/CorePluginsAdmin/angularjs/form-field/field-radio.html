@@ -1,4 +1,7 @@
-<p ng-repeat="radioModel in formField.availableOptions"
+<div>
+    <label class="fieldRadioTitle" ng-show="formField.title">{{ formField.title }}</label>
+
+    <p ng-repeat="radioModel in formField.availableOptions"
     class="radio">
     <input ng-model="formField.value"
            ng-value="radioModel.key"
@@ -10,4 +13,5 @@
     >
     <label for="{{ formField.name + radioModel.key }}">{{ radioModel.value }}
         <span class="form-description" ng-show="radioModel.description">{{ radioModel.description }}</span></label>
-</p>
+    </p>
+</div>

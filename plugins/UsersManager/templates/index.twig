@@ -167,12 +167,12 @@
                         {% if user.last_seen is defined %}
                         <td id="last_seen">{% if user.last_seen is empty %}-{% else %}{{ 'General_TimeAgo'|translate(user.last_seen)|raw }}{% endif %}</td>
                         {% endif %}
-                        <td class="text-center">
+                        <td class="center">
                             <button class="edituser table-action" id="row{{ i }}" title="{{ 'General_Edit'|translate }}">
                                 <span class="icon-edit"></span>
                             </button>
                         </td>
-                        <td class="text-center">
+                        <td class="center">
                             <button class="deleteuser table-action" id="row{{ i }}" title="{{ 'General_Delete'|translate }}">
                                 <span class="icon-delete"></span>
                             </button>

@@ -21,23 +21,40 @@
 
                 var focusedElement = null;
 
+                var isPreElement = (element.prop('tagName') + '').toLowerCase() === 'pre';
+
                 function onFocusHandler(event) {
                     if (focusedElement !== this) {
-                        // only select when not already selected
                         focusedElement = this;
                         angular.element(this).select();
                     }
+                }
+
+                function onClickHandler(event) {
+                    // .select() + focus and blur seems to not work on pre elements
+                    var range = document.createRange();
+                    range.selectNode(this);
+                    window.getSelection().addRange(range);
                 }
 
                 function onBlurHandler(event) {
                     focusedElement = null;
                 }
 
-                element.on('focus', onFocusHandler);
-                element.on('blur', onBlurHandler);
-                scope.$on('$destroy', function() {
+                if (isPreElement) {
+                    element.on('click', onClickHandler);
+                } else {
                     element.off('focus', onFocusHandler);
                     element.off('blur', onBlurHandler);
+                }
+
+                scope.$on('$destroy', function() {
+                    if (isPreElement) {
+                        element.off('click', onClickHandler);
+                    } else {
+                        element.off('focus', onFocusHandler);
+                        element.off('blur', onBlurHandler);
+                    }
                 });
             }
         };

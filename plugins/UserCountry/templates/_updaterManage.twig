@@ -60,12 +60,9 @@
 	<div>
 		<div id="done-updating-updater"></div>
 		<div id="geoipdb-update-info-error"></div>
-		<div id="geoip-progressbar-container" ng-show="locationUpdater.isUpdatingGeoIpDatabase">
-			<div class="progress">
-				<div class="determinate" style="width: 0"
-					 ng-style="{width: (locationUpdater.progressUpdateDownload + '%')}"></div>
-			</div>
-			<span id="geoip-updater-progressbar-label"></span>
-		</div>
+		<div piwik-progressbar
+			 progress="locationUpdater.progressUpdateDownload"
+			 label="locationUpdater.progressUpdateLabel"
+			 ng-show="locationUpdater.isUpdatingGeoIpDatabase"></div>
 	</div>
 </div>

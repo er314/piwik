@@ -87,6 +87,7 @@ class CoreHome extends \Piwik\Plugin
         $stylesheets[] = "plugins/CoreHome/angularjs/selector/selector.directive.less";
         $stylesheets[] = "plugins/CoreHome/angularjs/reporting-page/reportingpage.directive.less";
         $stylesheets[] = "plugins/CoreHome/angularjs/widget-bydimension-container/widget-bydimension-container.directive.less";
+        $stylesheets[] = "plugins/CoreHome/angularjs/progressbar/progressbar.directive.less";
     }
 
     public function getJsFiles(&$jsFiles)
@@ -170,6 +171,7 @@ class CoreHome extends \Piwik\Plugin
         $jsFiles[] = "plugins/CoreHome/angularjs/history/history.service.js";
 
         $jsFiles[] = "plugins/CoreHome/angularjs/activity-indicator/activityindicator.directive.js";
+        $jsFiles[] = "plugins/CoreHome/angularjs/progressbar/progressbar.directive.js";
 
         $jsFiles[] = "plugins/CoreHome/angularjs/siteselector/siteselector-model.service.js";
         $jsFiles[] = "plugins/CoreHome/angularjs/siteselector/siteselector.controller.js";

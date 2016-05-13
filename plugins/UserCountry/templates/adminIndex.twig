@@ -17,11 +17,11 @@
     {% if not isThereWorkingProvider %}
         <h3 style="margin-top:0;">{{ 'UserCountry_HowToSetupGeoIP'|translate }}</h3>
         <p>{{ 'UserCountry_HowToSetupGeoIPIntro'|translate }}</p>
-        <ul style="list-style:disc;margin-left:2em;">
-            <li>{{ 'UserCountry_HowToSetupGeoIP_Step1'|translate('<a href="http://geolite.maxmind.com/download/geoip/database/GeoLiteCity.dat.gz">','</a>','<a rel="noreferrer"  target="_blank" href="http://www.maxmind.com/?rId=piwik">','</a>')|raw }}</li>
-            <li>{{ 'UserCountry_HowToSetupGeoIP_Step2'|translate("'GeoLiteCity.dat'",'<strong>','</strong>')|raw }}</li>
-            <li>{{ 'UserCountry_HowToSetupGeoIP_Step3'|translate('<strong>','</strong>','<span style="color:green"><strong>','</strong></span>')|raw }}</li>
-            <li>{{ 'UserCountry_HowToSetupGeoIP_Step4'|translate }}</li>
+        <ul style="list-style:disc !important;margin-left:2em;">
+            <li style="list-style-type: disc !important;">{{ 'UserCountry_HowToSetupGeoIP_Step1'|translate('<a href="http://geolite.maxmind.com/download/geoip/database/GeoLiteCity.dat.gz">','</a>','<a rel="noreferrer"  target="_blank" href="http://www.maxmind.com/?rId=piwik">','</a>')|raw }}</li>
+            <li style="list-style-type: disc !important;">{{ 'UserCountry_HowToSetupGeoIP_Step2'|translate("'GeoLiteCity.dat'",'<strong>','</strong>')|raw }}</li>
+            <li style="list-style-type: disc !important;">{{ 'UserCountry_HowToSetupGeoIP_Step3'|translate('<strong>','</strong>','<span style="color:green"><strong>','</strong></span>')|raw }}</li>
+            <li style="list-style-type: disc !important;">{{ 'UserCountry_HowToSetupGeoIP_Step4'|translate }}</li>
         </ul>
         <p>&nbsp;</p>
     {% endif %}
@@ -135,11 +135,9 @@
                         </div>
                     </div>
                     <div id="geoipdb-screen2-download" ng-show="locationUpdater.showFreeDownload">
-                        <p class='loadingPiwik'><img src='./plugins/Morpheus/images/loading-blue.gif'/>
-                            {{ 'UserCountry_DownloadingDb'|translate('<a href="'~geoLiteUrl~'">GeoLiteCity.dat</a>')|raw }}...</p>
-                        <div class="progress">
-                            <div class="determinate" style="width: 0"
-                                 ng-style="{width: (locationUpdater.progressFreeDownload + '%')}"></div>
+                        <div piwik-progressbar
+                             label="{{ ('UserCountry_DownloadingDb'|translate('<a href="'~geoLiteUrl~'">GeoLiteCity.dat</a>') ~ '...')|json_encode }}"
+                             progress="locationUpdater.progressFreeDownload">
                         </div>
                     </div>
                 </div>
