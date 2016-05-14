@@ -2,19 +2,15 @@
     border-bottom: 1px dotted;
 }
 
+.goalTriggerType .input-field {
+    margin-top: 0 !important;
+}
+
 .goalEntry {
     margin: 0 0 20px 0;
     padding: 0 0 10px 0;
     border-bottom: 1px solid #7e7363;
     width: 614px;
-}
-
-.managegoals .addrow:hover {
-    text-decoration: underline;
-}
-
-.managegoals .addrow {
-    margin-top: 0px;
 }
 
 /* dimension selector */

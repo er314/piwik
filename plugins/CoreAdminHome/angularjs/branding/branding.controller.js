@@ -15,6 +15,9 @@
 
     function BrandingController($scope, piwikApi) {
 
+        var self = this;
+        this.isLoading = false;
+
         function refreshCustomLogo() {
             var selectors = ['#currentLogo', '#currentFavicon'];
             var index;
@@ -84,14 +87,19 @@
 
         this.save = function () {
 
+            this.isLoading = true;
+
             piwikApi.post({module: 'API', method: 'CoreAdminHome.setBrandingSettings'}, {
                 useCustomLogo: this.enabled ? '1' : '0'
             }).then(function (success) {
+                self.isLoading = false;
+
                 var UI = require('piwik/UI');
                 var notification = new UI.Notification();
                 notification.show(_pk_translate('CoreAdminHome_SettingsSaveSuccess'), {context: 'success'});
                 notification.scrollToNotification();
-
+            }, function () {
+                self.isLoading = false;
             });
         };
     }

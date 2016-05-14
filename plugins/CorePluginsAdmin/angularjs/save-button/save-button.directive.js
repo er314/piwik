@@ -19,7 +19,10 @@
         return {
             restrict: 'A',
             replace: true,
-            template: '<input type="button" value="{{ \'General_Save\'|translate }}" class="btn"/>'
+            scope: {
+                saving: '=?',
+            },
+            templateUrl: 'plugins/CorePluginsAdmin/angularjs/save-button/save-button.directive.html?cb=' + piwik.cacheBuster
         };
     }
 })();

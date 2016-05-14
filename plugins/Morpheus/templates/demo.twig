@@ -223,24 +223,32 @@
         <h2>Alerts</h2>
 
         <div class="demo">
-            <div class="alert alert-info">
+            <div piwik-alert="info">
                 <strong>Info!</strong> This alert needs <a>your attention</a>, but it's not super important.
             </div>
-            <div class="alert alert-success">
+            <div piwik-alert="success">
                 <strong>Success!</strong> You successfully read this important <a>alert message</a>.
             </div>
-            <div class="alert alert-warning">
+            <div piwik-alert="warning">
                 <strong>Warning!</strong> Better <a>check</a> yourself, you're not looking too good.
             </div>
-            <div class="alert alert-danger">
+            <div piwik-alert="danger">
                 <strong>Error!</strong> Change <a>a few things</a> up and try submitting again.
             </div>
         </div>
         <div class="demo-code">
-            <pre>&lt;div class=&quot;alert alert-info&quot;&gt;...&lt;/div&gt;
-&lt;div class=&quot;alert alert-success&quot;&gt;...&lt;/div&gt;
-&lt;div class=&quot;alert alert-warning&quot;&gt;...&lt;/div&gt;
-&lt;div class=&quot;alert alert-danger&quot;&gt;...&lt;/div&gt;</pre>
+            <pre>&lt;div piwik-alert=&quot;info&quot;&gt;
+    &lt;strong&gt;Info!&lt;/strong&gt; This alert needs &lt;a&gt;your attention&lt;/a&gt;, but it's not super important.
+&lt;/div&gt;
+&lt;div piwik-alert=&quot;success&quot;&gt;
+    &lt;strong&gt;Success!&lt;/strong&gt; You successfully read this important &lt;a&gt;alert message&lt;/a&gt;.
+&lt;/div&gt;
+&lt;div piwik-alert=&quot;warning&quot;&gt;
+    &lt;strong&gt;Warning!&lt;/strong&gt; Better &lt;a&gt;check&lt;/a&gt; yourself, you're not looking too good.
+&lt;/div&gt;
+&lt;div piwik-alert=&quot;danger&quot;&gt;
+    &lt;strong&gt;Error!&lt;/strong&gt; Change &lt;a&gt;a few things&lt;/a&gt; up and try submitting again.
+&lt;/div&gt;</pre>
         </div>
 
         <h2>Forms</h2>
@@ -339,7 +347,7 @@
                      title="Select a website">
                 </div>
 
-                <input piwik-save-button>
+                <input piwik-save-button saving="false">
             </div>
         </div>
         <div class="demo-code">
@@ -434,7 +442,7 @@
          title=&quot;Select a website&quot;&gt;
     &lt;/div&gt;
 
-    &lt;input piwik-save-button&gt;
+    &lt;input piwik-save-button saving=&quot;false&quot;&gt;
 &lt;/div&gt;</pre>
         </div>
 

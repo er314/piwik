@@ -12,10 +12,11 @@
     function PersonalSettingsController(piwikApi) {
         // remember to keep controller very simple. Create a service/factory (model) if needed
 
+        var self = this;
+        
         function updateSettings(postParams)
         {
-            this.loading = true;
-            var self = this;
+            self.loading = true;
 
             piwikApi.withTokenInUrl();
             piwikApi.post({

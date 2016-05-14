@@ -41,8 +41,7 @@
             </div>
         </div>
 
-        <input piwik-save-button ng-click="anonymizeIp.save()"/>
-        <div piwik-activity-indicator loading="anonymizeIp.isLoading"></div>
+        <input piwik-save-button ng-click="anonymizeIp.save()" saving="anonymizeIp.isLoading"/>
     </div>
 </div>
 
@@ -109,8 +108,7 @@
                 </div>
             </div>
 
-            <input piwik-save-button ng-click="deleteOldLogs.save()"/>
-            <div piwik-activity-indicator loading="deleteOldLogs.isLoading"></div>
+            <input piwik-save-button ng-click="deleteOldLogs.save()" saving="deleteOldLogs.isLoading" />
         </div>
     </div>
 
@@ -205,8 +203,7 @@
                 </div>
             </div>
 
-            <input piwik-save-button ng-click="deleteReports.save()"/>
-            <div piwik-activity-indicator loading="deleteReports.isLoading"></div>
+            <input piwik-save-button ng-click="deleteReports.save()" saving="deleteReports.isLoading" />
         </div>
     </div>
 
@@ -272,8 +269,7 @@
                 </div>
             </div>
 
-            <input piwik-save-button ng-click="reportDeletionSchedule.save()"/>
-            <div piwik-activity-indicator loading="reportDeletionSchedule.isLoading"></div>
+            <input piwik-save-button ng-click="reportDeletionSchedule.save()" saving="reportDeletionSchedule.isLoading" />
 
         </div>
     {% endif %}
@@ -301,8 +297,7 @@
              inline-help="{{ 'PrivacyManager_DoNotTrack_Description'|translate|e('html_attr') }}">
         </div>
 
-        <input piwik-save-button ng-click="doNotTrack.save()" />
-        <div piwik-activity-indicator loading="doNotTrack.isLoading"></div>
+        <input piwik-save-button ng-click="doNotTrack.save()" saving="doNotTrack.isLoading" />
 
     </div>
 

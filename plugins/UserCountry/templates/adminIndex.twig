@@ -95,9 +95,7 @@
     </div>
     {% endfor %}
 
-    <div piwik-save-button ng-click="locationSelector.save()"></div>
-
-    <div piwik-activity-indicator loading="locationSelector.isLoading"></div>
+    <div piwik-save-button ng-click="locationSelector.save()" saving="locationSelector.isLoading"></div>
 
 </div>
 </div>

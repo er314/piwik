@@ -10,78 +10,79 @@
     {{ ajax.errorDiv() }}
     {{ ajax.loadingDiv() }}
 <div piwik-content-block content-title="{{ 'CoreAdminHome_ArchivingSettings'|translate|e('html_attr') }}">
+    <div ng-controller="ArchivingController as archivingSettings">
+        {% if isGeneralSettingsAdminEnabled %}
+            <div class="form-group row">
+                <h3 class="col s12">{{ 'General_AllowPiwikArchivingToTriggerBrowser'|translate }}</h3>
+                <div class="col s12 m6">
+                    <p>
+                        <input type="radio" value="1" id="enableBrowserTriggerArchiving1"
+                               name="enableBrowserTriggerArchiving" {% if enableBrowserTriggerArchiving==1 %} checked="checked"{% endif %}
+                        />
+                        <label for="enableBrowserTriggerArchiving1">
+                            {{ 'General_Yes'|translate }}
+                            <span class="form-description">{{ 'General_Default'|translate }}</span>
+                        </label>
+                    </p>
 
-    {% if isGeneralSettingsAdminEnabled %}
-        <div class="form-group row">
-            <h3 class="col s12">{{ 'General_AllowPiwikArchivingToTriggerBrowser'|translate }}</h3>
-            <div class="col s12 m6">
-                <p>
-                    <input type="radio" value="1" id="enableBrowserTriggerArchiving1"
-                           name="enableBrowserTriggerArchiving" {% if enableBrowserTriggerArchiving==1 %} checked="checked"{% endif %}
-                    />
-                    <label for="enableBrowserTriggerArchiving1">
-                        {{ 'General_Yes'|translate }}
-                        <span class="form-description">{{ 'General_Default'|translate }}</span>
+                    <p>
+                    <input type="radio" value="0"
+                           id="enableBrowserTriggerArchiving2"
+                           name="enableBrowserTriggerArchiving"
+                            {% if enableBrowserTriggerArchiving==0 %} checked="checked"{% endif %} />
+
+                    <label for="enableBrowserTriggerArchiving2">
+                        {{ 'General_No'|translate }}
+                        <span class="form-description">{{ 'General_ArchivingTriggerDescription'|translate("<a href='?module=Proxy&action=redirect&url=http://piwik.org/docs/setup-auto-archiving/' target='_blank'>","</a>")|raw }}</span>
                     </label>
-                </p>
-
-                <p>
-                <input type="radio" value="0"
-                       id="enableBrowserTriggerArchiving2"
-                       name="enableBrowserTriggerArchiving"
-                        {% if enableBrowserTriggerArchiving==0 %} checked="checked"{% endif %} />
-
-                <label for="enableBrowserTriggerArchiving2">
-                    {{ 'General_No'|translate }}
-                    <span class="form-description">{{ 'General_ArchivingTriggerDescription'|translate("<a href='?module=Proxy&action=redirect&url=http://piwik.org/docs/setup-auto-archiving/' target='_blank'>","</a>")|raw }}</span>
-                </label>
-                </p>
-            </div><div class="col s12 m6">
-                <div class="form-help">
-                    {{ 'General_ArchivingInlineHelp'|translate }}
-                    <br/>
-                    {{ 'General_SeeTheOfficialDocumentationForMoreInformation'|translate("<a href='?module=Proxy&action=redirect&url=http://piwik.org/docs/setup-auto-archiving/' target='_blank'>","</a>")|raw }}
+                    </p>
+                </div><div class="col s12 m6">
+                    <div class="form-help">
+                        {{ 'General_ArchivingInlineHelp'|translate }}
+                        <br/>
+                        {{ 'General_SeeTheOfficialDocumentationForMoreInformation'|translate("<a href='?module=Proxy&action=redirect&url=http://piwik.org/docs/setup-auto-archiving/' target='_blank'>","</a>")|raw }}
+                    </div>
                 </div>
             </div>
-        </div>
-    {% else %}
-        <div piwik-field uicontrol="radio" name="mailUseSmtp"
-             disabled="true"
-             introduction="{{ 'General_AllowPiwikArchivingToTriggerBrowser'|translate|e('html_attr') }}"
-             title="{{ 'General_Yes'|translate|e('html_attr') }}"
-             value="1">
-        </div>
-    {% endif %}
+        {% else %}
+            <div piwik-field uicontrol="radio" name="mailUseSmtp"
+                 disabled="true"
+                 introduction="{{ 'General_AllowPiwikArchivingToTriggerBrowser'|translate|e('html_attr') }}"
+                 title="{{ 'General_Yes'|translate|e('html_attr') }}"
+                 value="1">
+            </div>
+        {% endif %}
 
-    <div class="form-group row">
-        <h3 class="col s12">
-            {{ 'General_ReportsContainingTodayWillBeProcessedAtMostEvery'|translate }}
-        </h3>
-        <div class="input-field col s12 m6">
-            <input  type="text" value='{{ todayArchiveTimeToLive  }}' id='todayArchiveTimeToLive' {% if not isGeneralSettingsAdminEnabled %}disabled="disabled"{% endif %} />
-            <span class="form-description">
-                {{ 'General_RearchiveTimeIntervalOnlyForTodayReports'|translate }}
-            </span>
+        <div class="form-group row">
+            <h3 class="col s12">
+                {{ 'General_ReportsContainingTodayWillBeProcessedAtMostEvery'|translate }}
+            </h3>
+            <div class="input-field col s12 m6">
+                <input  type="text" value='{{ todayArchiveTimeToLive  }}' id='todayArchiveTimeToLive' {% if not isGeneralSettingsAdminEnabled %}disabled="disabled"{% endif %} />
+                <span class="form-description">
+                    {{ 'General_RearchiveTimeIntervalOnlyForTodayReports'|translate }}
+                </span>
+            </div>
+            <div class="col s12 m6">
+                {% if isGeneralSettingsAdminEnabled %}
+                    <div class="form-help">
+                        {% if showWarningCron %}
+                            <strong>
+                                {{ 'General_NewReportsWillBeProcessedByCron'|translate }}<br/>
+                                {{ 'General_ReportsWillBeProcessedAtMostEveryHour'|translate }}
+                                {{ 'General_IfArchivingIsFastYouCanSetupCronRunMoreOften'|translate }}<br/>
+                            </strong>
+                        {% endif %}
+                        {{ 'General_SmallTrafficYouCanLeaveDefault'|translate( todayArchiveTimeToLiveDefault ) }}
+                        <br/>
+                        {{ 'General_MediumToHighTrafficItIsRecommendedTo'|translate(1800,3600) }}
+                    </div>
+                {% endif %}
+            </div>
         </div>
-        <div class="col s12 m6">
-            {% if isGeneralSettingsAdminEnabled %}
-                <div class="form-help">
-                    {% if showWarningCron %}
-                        <strong>
-                            {{ 'General_NewReportsWillBeProcessedByCron'|translate }}<br/>
-                            {{ 'General_ReportsWillBeProcessedAtMostEveryHour'|translate }}
-                            {{ 'General_IfArchivingIsFastYouCanSetupCronRunMoreOften'|translate }}<br/>
-                        </strong>
-                    {% endif %}
-                    {{ 'General_SmallTrafficYouCanLeaveDefault'|translate( todayArchiveTimeToLiveDefault ) }}
-                    <br/>
-                    {{ 'General_MediumToHighTrafficItIsRecommendedTo'|translate(1800,3600) }}
-                </div>
-            {% endif %}
-        </div>
+
+        <div ng-click="archivingSettings.save()" saving="archivingSettings.isLoading" piwik-save-button></div>
     </div>
-
-    <div onclick="CoreAdminHome.generalSettings.saveArchiveSettings()" piwik-save-button></div>
 </div>
 {% if isGeneralSettingsAdminEnabled %}
     <div piwik-content-block content-title="{{ 'CoreAdminHome_EmailServerSettings'|translate|e('html_attr') }}">
@@ -141,7 +142,7 @@
                 </div>
             </div>
 
-            <div ng-click="mailSettings.save()" piwik-save-button></div>
+            <div ng-click="mailSettings.save()" saving="mailSettings.isLoading" piwik-save-button></div>
         </div>
     </div>
 {% endif %}
@@ -215,7 +216,7 @@
             </form>
         </div>
 
-        <div ng-click="brandingSettings.save()" piwik-save-button></div>
+        <div ng-click="brandingSettings.save()" saving="brandingSettings.isLoading" piwik-save-button></div>
     </div>
 </div>
 
@@ -226,7 +227,7 @@
         <input role="yes" type="button" value="{{ 'General_Yes'|translate }}"/>
         <input role="no" type="button" value="{{ 'General_No'|translate }}"/>
     </div>
-    <div id='trustedHostSettings'>
+    <div id='trustedHostSettings' piwik-trusted-hosts-setting='{{ trustedHosts|json_encode }}'>
 
         {% include "@CoreHome/_warningInvalidHost.twig" %}
 
@@ -237,27 +238,26 @@
                 <label>{{ 'CoreAdminHome_ValidPiwikHostname'|translate }}</label>
             </div>
             <ul>
-                {% for hostIdx, host in trustedHosts %}
-                    <li>
-                        <input name="trusted_host" type="text" value="{{ host }}"/>
-                        <a href="#" onclick="return CoreAdminHome.generalSettings.removeTrustedHost(event);"
-                           class="remove-trusted-host btn-flat btn-large" title="{{ 'General_Delete'|translate }}">
-                            <span class="icon-minus"></span>
-                        </a>
-                    </li>
-                {% endfor %}
+                <li ng-repeat="trustedHost in trustedHosts.hosts">
+                    <input ng-model="trustedHost.host" type="text"/>
+                    <a href="javascript:;" ng-click="trustedHosts.removeTrustedHost($index);"
+                       class="remove-trusted-host btn-flat btn-large" title="{{ 'General_Delete'|translate }}">
+                        <span class="icon-minus"></span>
+                    </a>
+                </li>
             </ul>
 
             <div class="add-trusted-host">
-                <input type="text" placeholder="{{ 'CoreAdminHome_AddNewTrustedHost'|translate|e('html_attr') }}" readonly/>
+                <input type="text" ng-click="trustedHosts.addTrustedHost();"
+                       placeholder="{{ 'CoreAdminHome_AddNewTrustedHost'|translate|e('html_attr') }}" readonly/>
 
-                <a href="#" onclick="return CoreAdminHome.generalSettings.addTrustedHost(event);" class="btn-flat btn-large" title="{{ 'General_Add'|translate }}">
+                <a href="#" ng-click="trustedHosts.addTrustedHost();"
+                   class="btn-flat btn-large" title="{{ 'General_Add'|translate }}">
                     <span class="icon-add"></span>
                 </a>
-
             </div>
 
-            <div onclick="CoreAdminHome.generalSettings.saveTrustedHosts()" piwik-save-button></div>
+            <div ng-click="trustedHosts.save()" saving="trustedHosts.isLoading" piwik-save-button></div>
         {% endif %}
     </div>
 

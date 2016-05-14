@@ -15,7 +15,12 @@
 
     function MailSmtpController($scope, piwikApi) {
 
+        var self = this;
+        this.isLoading = false;
+
         this.save = function () {
+
+            this.isLoading = true;
 
             piwikApi.withTokenInUrl();
             piwikApi.post({module: 'CoreAdminHome', action: 'setMailSettings'}, {
@@ -28,11 +33,15 @@
                 mailEncryption: this.mailEncryption,
             }).then(function (success) {
 
+                self.isLoading = false;
+
                 var UI = require('piwik/UI');
                 var notification = new UI.Notification();
                 notification.show(_pk_translate('CoreAdminHome_SettingsSaveSuccess'), {context: 'success'});
                 notification.scrollToNotification();
 
+            }, function () {
+                self.isLoading = false;
             });
         };
     }

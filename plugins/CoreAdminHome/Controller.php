@@ -57,7 +57,7 @@ class Controller extends ControllerAdmin
         $view = new View('@CoreAdminHome/generalSettings');
         $this->handleGeneralSettingsAdmin($view);
 
-        $view->trustedHosts = Url::getTrustedHostsFromConfig();
+        $view->trustedHosts = array_values(Url::getTrustedHostsFromConfig());
         $logo = new CustomLogo();
         $view->branding              = array('use_custom_logo' => $logo->isEnabled());
         $view->fileUploadEnabled     = $logo->isFileUploadEnabled();

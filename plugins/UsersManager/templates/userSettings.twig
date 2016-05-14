@@ -98,9 +98,8 @@
                 </div>
             {% endif %}
 
-            <div piwik-activity-indicator loading="personalSettings.loading"></div>
-
-            <input piwik-save-button ng-click="personalSettings.save()">
+            <input piwik-save-button ng-click="personalSettings.save()"
+                   saving="personalSettings.loading">
 
         </form>
     {% endblock %}

@@ -31,6 +31,12 @@
             compile: function (element, attrs) {
 
                 return function (scope, element, attrs) {
+                    var inlineHelp = element.find('[ng-transclude] > .contentHelp');
+                    if (inlineHelp.size()) {
+                        scope.helpText = inlineHelp.html();
+                        inlineHelp.remove();
+                    }
+
                     if (scope.feature && (scope.feature===true || scope.feature ==='true')) {
                         scope.feature = scope.contentTitle;
                     }

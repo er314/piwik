@@ -4,8 +4,6 @@
         {{ 'CorePluginsAdmin_NoPluginSettings'|translate }}
     </p>
 
-    <div piwik-activity-indicator loading="pluginSettings.isLoading"></div>
-
     <div ng-repeat="settings in pluginSettings.settingsPerPlugin"
          class="card"
           id="pluginSettings">
@@ -18,8 +16,12 @@
             </div>
 
             <input type="button" ng-click="pluginSettings.save(settings)"
+                   ng-disabled="pluginSettings.isLoading"
                    value="{{ 'General_Save'|translate }}"
                    class="pluginsSettingsSubmit btn"/>
+
+            <div piwik-activity-indicator loading="pluginSettings.isLoading"></div>
+
         </div>
 
     </div>

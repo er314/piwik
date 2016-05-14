@@ -35,9 +35,7 @@
                  options="{{ availableDefaultDates|json_encode }}">
             </div>
 
-            <div piwik-activity-indicator loading="anonymousSettings.loading"></div>
-
-            <input piwik-save-button ng-click="anonymousSettings.save()"/>
+            <input piwik-save-button saving="anonymousSettings.loading" ng-click="anonymousSettings.save()"/>
 
         </div>
 

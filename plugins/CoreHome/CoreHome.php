@@ -88,6 +88,7 @@ class CoreHome extends \Piwik\Plugin
         $stylesheets[] = "plugins/CoreHome/angularjs/reporting-page/reportingpage.directive.less";
         $stylesheets[] = "plugins/CoreHome/angularjs/widget-bydimension-container/widget-bydimension-container.directive.less";
         $stylesheets[] = "plugins/CoreHome/angularjs/progressbar/progressbar.directive.less";
+        $stylesheets[] = "plugins/CoreHome/angularjs/alert/alert.directive.less";
     }
 
     public function getJsFiles(&$jsFiles)
@@ -172,6 +173,7 @@ class CoreHome extends \Piwik\Plugin
 
         $jsFiles[] = "plugins/CoreHome/angularjs/activity-indicator/activityindicator.directive.js";
         $jsFiles[] = "plugins/CoreHome/angularjs/progressbar/progressbar.directive.js";
+        $jsFiles[] = "plugins/CoreHome/angularjs/alert/alert.directive.js";
 
         $jsFiles[] = "plugins/CoreHome/angularjs/siteselector/siteselector-model.service.js";
         $jsFiles[] = "plugins/CoreHome/angularjs/siteselector/siteselector.controller.js";
@@ -220,6 +222,9 @@ class CoreHome extends \Piwik\Plugin
         $jsFiles[] = "plugins/CoreAdminHome/angularjs/branding/branding.controller.js";
         $jsFiles[] = "plugins/CoreAdminHome/angularjs/trackingcode/jstrackingcode.controller.js";
         $jsFiles[] = "plugins/CoreAdminHome/angularjs/trackingcode/imagetrackingcode.controller.js";
+        $jsFiles[] = "plugins/CoreAdminHome/angularjs/archiving/archiving.controller.js";
+        $jsFiles[] = "plugins/CoreAdminHome/angularjs/trustedhosts/trustedhosts.directive.js";
+        $jsFiles[] = "plugins/CoreAdminHome/angularjs/trustedhosts/trustedhosts.controller.js";
 
 
         // we have to load these CorePluginsAdmin files here. If we loaded them in CorePluginsAdmin,
