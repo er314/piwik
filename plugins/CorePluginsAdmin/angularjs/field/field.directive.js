@@ -52,7 +52,9 @@
                 autofocus: '@',
                 tabindex: '@',
                 templateFile: '@',
-                fullWidth: '@'
+                fullWidth: '@',
+                maxLength: '@',
+                required: '@'
             },
             template: '<div piwik-form-field="field"></div>',
             link: function(scope, elm, attrs, ctrl) {
@@ -107,12 +109,16 @@
                 field.fullWidth = !!$scope.fullWidth;
 
                 var i = 0, attribute;
-                var attributes = ['disabled', 'autocomplete', 'tabindex', 'autofocus'];
+                var attributes = ['disabled', 'autocomplete', 'tabindex', 'autofocus', 'required'];
                 for (i; i < attributes.length; i++) {
                     attribute = attributes[i];
                     if (!!$scope[attribute]) {
                         field.uiControlAttributes[attribute] = $scope[attribute];
                     }
+                }
+
+                if (!!$scope.maxLength) {
+                    field.uiControlAttributes['max-length'] = $scope.maxLength;
                 }
 
                 $scope.field = field;

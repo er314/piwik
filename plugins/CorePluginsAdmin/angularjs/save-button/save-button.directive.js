@@ -21,6 +21,7 @@
             replace: true,
             scope: {
                 saving: '=?',
+                value: '@?'
             },
             templateUrl: 'plugins/CorePluginsAdmin/angularjs/save-button/save-button.directive.html?cb=' + piwik.cacheBuster
         };

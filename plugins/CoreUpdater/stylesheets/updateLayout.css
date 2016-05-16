@@ -30,3 +30,9 @@ li {
 form#oneclickupdate {
     min-height: 50px;
 }
+
+
+body#simple .languageSelection {
+    color: #4183C4;
+    padding-top: 8px;
+}

@@ -1,4 +1,4 @@
 <div style="display:inline-block;cursor: pointer">
-    <input type="button" value="{{ 'General_Save'|translate }}" ng-disabled="saving" class="btn"/>
+    <input type="button" value="{{ value ? value : ('General_Save'|translate) }}" ng-disabled="saving" class="btn"/>
     <div piwik-activity-indicator loading="saving"></div>
 </div>
