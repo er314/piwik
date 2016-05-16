@@ -21,12 +21,4 @@ $(function () {
         });
     }
 
-    var contentAdmin = $('#content.admin');
-
-    if (contentAdmin.length) {
-        adjustSize(contentAdmin);
-        $(window).resize(function () {
-            adjustSize(contentAdmin);
-        });
-    }
 });
