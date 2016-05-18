@@ -1,33 +1,51 @@
 {% macro manageSmsApi(credentialSupplied, creditLeft, smsProviderOptions, smsProviders, provider) %}
+<div ng-controller="ManageSmsProviderController as manageProvider">
+
+    <div piwik-activity-indicator loading="manageProvider.isDeletingAccount"></div>
+    <div id="ajaxErrorManageSmsProviderSettings"></div>
+
     {% if credentialSupplied %}
-        {{ 'MobileMessaging_Settings_CredentialProvided'|translate(provider) }}
-        {{ creditLeft }}
-        <br/>
-        {{ 'MobileMessaging_Settings_UpdateOrDeleteAccount'|translate("<a id='displayAccountForm'>","</a>","<a id='deleteAccount'>","</a>")|raw }}
+        <p>
+            {{ 'MobileMessaging_Settings_CredentialProvided'|translate(provider) }}
+            {{ creditLeft }}
+            <br/>
+            {{ 'MobileMessaging_Settings_UpdateOrDeleteAccount'|translate('<a ng-click="manageProvider.showUpdateAccount()" id="displayAccountForm">',"</a>",'<a ng-click="manageProvider.deleteAccount()" id="deleteAccount">',"</a>")|raw }}
+        </p>
     {% else %}
-        {{ 'MobileMessaging_Settings_PleaseSignUp'|translate }}
+        <p>{{ 'MobileMessaging_Settings_PleaseSignUp'|translate }}</p>
     {% endif %}
-    <div id='accountForm' {% if credentialSupplied %}style='display: none;'{% endif %} piwik-form>
-        <br/>
+
+    <div piwik-form id='accountForm' {% if credentialSupplied %}ng-show="manageProvider.showAccountForm"{% endif %}>
 
         <div piwik-field uicontrol="select" name="smsProviders"
              options="{{ smsProviderOptions|json_encode }}"
+             ng-model="manageProvider.smsProvider"
+             ng-change="manageProvider.isUpdateAccountPossible()"
              title="{{ 'MobileMessaging_Settings_SMSProvider'|translate|e('html_attr') }}"
              value="{{ provider }}">
         </div>
 
         <div piwik-field uicontrol="text" name="apiKey"
+             ng-model="manageProvider.apiKey"
+             required="true"
+             ng-change="manageProvider.isUpdateAccountPossible()"
              title="{{ 'MobileMessaging_Settings_APIKey'|translate|e('html_attr') }}"
              value="">
         </div>
 
-        <div piwik-save-button id='apiAccountSubmit'></div>
+        <div piwik-save-button id='apiAccountSubmit'
+             disabled="!manageProvider.canBeUpdated"
+             saving="manageProvider.isUpdatingAccount"
+             ng-click="manageProvider.updateAccount()"></div>
 
         {% for smsProvider, description in smsProviders %}
-            <div class='providerDescription' id='{{ smsProvider }}'>
+            <div class='providerDescription'
+                 ng-show="manageProvider.smsProvider == '{{ smsProvider|e('js') }}'"
+                 id='{{ smsProvider }}'>
                 {{ description|raw }}
             </div>
         {% endfor %}
 
     </div>
+</div>
 {% endmacro %}

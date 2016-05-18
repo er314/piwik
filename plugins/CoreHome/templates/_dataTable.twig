@@ -4,7 +4,7 @@
 
 {% set isDataTableEmpty = (dataTable is empty or dataTableHasNoData|default(false)) %}
 
-{% if (properties.show_as_card and properties.show_title and not isWidget)  %}
+{% if (properties.show_as_content_block and properties.show_title and not isWidget)  %}
 <div class="card">
 <div class="card-content">
     {% if properties.title %}
@@ -16,7 +16,7 @@
     <h2>{{ properties.title }}</h2>
 {% endif %}
 
-{% if not properties.show_as_card and isDataTableEmpty %}
+{% if not properties.show_as_content_block and isDataTableEmpty %}
     <div class="card">
     <div class="card-content">
 {% endif %}
@@ -63,7 +63,7 @@
     </div>
 </div>
 
-{% if properties.show_as_card or isDataTableEmpty %}
+{% if properties.show_as_content_block or isDataTableEmpty %}
     </div></div>
 {%- endif %}
 {%- endif %}

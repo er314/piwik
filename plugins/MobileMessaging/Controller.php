@@ -50,26 +50,9 @@ class Controller extends ControllerAdmin
      */
     public function index()
     {
-        Piwik::checkUserHasSuperUserAccess();
-
-        $view = new View('@MobileMessaging/index');
-        $this->setManageVariables($view);
-
-        return $view->render();
-    }
-
-    /**
-     * Mobile Messaging Settings tab :
-     *  - set delegated management
-     *  - provide & validate SMS API credential
-     *  - add & activate phone numbers
-     *  - check remaining credits
-     */
-    public function userSettings()
-    {
         Piwik::checkUserIsNotAnonymous();
 
-        $view = new View('@MobileMessaging/userSettings');
+        $view = new View('@MobileMessaging/index');
         $this->setManageVariables($view);
 
         return $view->render();
@@ -111,25 +94,33 @@ class Controller extends ControllerAdmin
         }
 
         $view->smsProviders = $providers;
+
         $view->smsProviderOptions = $providerOptions;
 
-        // construct the list of countries from the lang files
-        $countries = array();
-        foreach ($this->regionDataProvider->getCountryList() as $countryCode => $continentCode) {
-            if (isset(CountryCallingCodes::$countryCallingCodes[$countryCode])) {
-                $countries[$countryCode] = array(
-                    'countryName'        => \Piwik\Plugins\UserCountry\countryTranslate($countryCode),
-                    'countryCallingCode' => CountryCallingCodes::$countryCallingCodes[$countryCode],
-                );
-            }
-        }
-        $view->countries = $countries;
-
-        $view->defaultCountry = Common::getCountry(
+        $defaultCountry = Common::getCountry(
             LanguagesManager::getLanguageCodeForCurrentUser(),
             true,
             IP::getIpFromHeader()
         );
+
+        $view->defaultCallingCode = '';
+
+        // construct the list of countries from the lang files
+        $countries = array(array('key' => '', 'value' => ''));
+        foreach ($this->regionDataProvider->getCountryList() as $countryCode => $continentCode) {
+            if (isset(CountryCallingCodes::$countryCallingCodes[$countryCode])) {
+
+                if ($countryCode == $defaultCountry) {
+                    $view->defaultCallingCode = CountryCallingCodes::$countryCallingCodes[$countryCode];
+                }
+
+                $countries[] = array(
+                    'key' => CountryCallingCodes::$countryCallingCodes[$countryCode],
+                    'value' => \Piwik\Plugins\UserCountry\countryTranslate($countryCode)
+                );
+            }
+        }
+        $view->countries = $countries;
 
         $view->phoneNumbers = $mobileMessagingAPI->getPhoneNumbers();
 

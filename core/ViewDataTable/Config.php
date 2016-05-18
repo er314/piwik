@@ -327,7 +327,17 @@ class Config
      */
     public $show_tag_cloud = true;
 
-    public $show_as_card = true;
+    /**
+     * If enabled, shows the visualization as a content block. This is similar to wrapping your visualization
+     * with a `<div piwik-content-block></div>`
+     * @var bool
+     */
+    public $show_as_content_block = true;
+
+    /**
+     * If enabled shows the title of the report.
+     * @var bool
+     */
     public $show_title = true;
 
     /**
