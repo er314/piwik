@@ -44,8 +44,8 @@
                 if (isPreElement) {
                     element.on('click', onClickHandler);
                 } else {
-                    element.off('focus', onFocusHandler);
-                    element.off('blur', onBlurHandler);
+                    element.on('focus', onFocusHandler);
+                    element.on('blur', onBlurHandler);
                 }
 
                 scope.$on('$destroy', function() {
