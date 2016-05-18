@@ -200,7 +200,7 @@
 
             ajaxHandler.redirectOnSuccess($scope.redirectParams);
             ajaxHandler.setLoadingElement();
-            ajaxHandler.send(true);
+            ajaxHandler.send();
         };
 
         init();

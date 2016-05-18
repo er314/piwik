@@ -221,7 +221,7 @@
             ajaxHandler.withTokenInUrl();
             ajaxHandler.redirectOnSuccess($scope.redirectParams);
             ajaxHandler.setLoadingElement();
-            ajaxHandler.send(true);
+            ajaxHandler.send();
         };
 
         var cancelEditSite = function (site) {

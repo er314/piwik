@@ -14,6 +14,7 @@
 
     <script type="text/javascript" src="libs/bower_components/jquery/dist/jquery.min.js"></script>
     <script type="text/javascript" src="libs/bower_components/jquery-ui/ui/minified/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="libs/bower_components/materialize/dist/js/materialize.min.js"></script>
     <script type="text/javascript" src="libs/bower_components/angular/angular.min.js"></script>
     <script type="text/javascript" src="libs/bower_components/angular-sanitize/angular-sanitize.js"></script>
     <script type="text/javascript" src="libs/bower_components/angular-animate/angular-animate.js"></script>
@@ -28,8 +29,7 @@
     <script type="text/javascript" src="plugins/CoreHome/angularjs/piwikApp.js"></script>
     <script type="text/javascript" src="plugins/Installation/javascripts/installation.js"></script>
 </head>
-<!--[if (gte IE 9)|!(IE)]><!-->
-<body ng-app="app"><!--<![endif]-->
+<body ng-app="app" id="installation">
 
 <div class="container">
 
@@ -73,7 +73,7 @@
         <div class="col s9 content">
             {% set nextButton %}
                 <p class="next-step">
-                    <a class="btn btn-large" href="{{ linkTo({'action':nextModuleName, 'token_auth':null, 'method':null }) }}">
+                    <a class="btn" href="{{ linkTo({'action':nextModuleName, 'token_auth':null, 'method':null }) }}">
                         {{ 'General_Next'|translate }} &raquo;</a>
                 </p>
             {% endset %}
