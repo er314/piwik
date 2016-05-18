@@ -179,14 +179,7 @@ var piwikHelper = {
 
             if(typeof handles[role] == 'function') {
                 button.on('click', function(){
-                    $content.closeModal();
                     handles[role].apply()
-                    $content = null;
-                });
-            } else {
-                button.on('click', function(){
-                    $content.closeModal();
-                    $content = null;
                 });
             }
 

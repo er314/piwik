@@ -6,9 +6,26 @@
 {% set headline %}{{ 'General_AboutPiwikX'|translate(piwikVersion) }}{% endset %}
 
 {% block content %}
+
+    <script type="text/javascript">
+        $(function () {
+            $('.dropdown-button').dropdown({
+                        inDuration: 300,
+                        outDuration: 225,
+                        constrain_width: false, // Does not change width of dropdown to that of the activator
+                        hover: true, // Activate on hover
+                        gutter: 0, // Spacing from edge
+                        belowOrigin: false, // Displays dropdown below the button
+                        alignment: 'left' // Displays dropdown with edge aligned to the left of button
+                    }
+            );
+        });
+
+    </script>
     <div id="feedback-faq" class="admin">
-        {% embed 'contentBlock.twig' with {'title': headline, 'rate': 'General_Help'|translate} %}
-            {% block content %}
+        <div piwik-content-block
+             content-title="{{ headline|e('html_attr') }}"
+             feature="{{ 'General_Help'|translate|e('html_attr') }}">
             <p>{{ 'General_PiwikIsACollaborativeProjectYouCanContributeAndDonate'|translate(
                 "<a href='?module=Proxy&action=redirect&url=http://piwik.org' target='_blank'>",
                 "</a>",
@@ -20,8 +37,7 @@
                 "</a>"
                 )|raw }}
             </p>
-            {% endblock %}
-        {% endembed %}
+        </div>
 
         <div piwik-content-block content-title="{{ 'Feedback_CommunityHelp'|translate|e('html_attr') }}">
             <p> &bull; {{ 'Feedback_ViewUserGuides'|translate("<a target='_blank' href='?module=Proxy&action=redirect&url=http://piwik.org/docs/'>","</a>")|raw }}.</p>
