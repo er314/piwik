@@ -529,40 +529,32 @@ $.extend(DataTable.prototype, UIControl.prototype, {
         }
 
         // setup limit control
-        $('.limitSelection', domElem).append('<div><span value="'+ self.param[limitParamName] +'">' + getFilterLimitAsString(self.param[limitParamName]) + '</span></div><ul></ul>');
+
+        var selectionMarkup = '<div class="input-field"><select value="'+ self.param[limitParamName] +'">';
+        var selectedValue = getFilterLimitAsString(self.param[limitParamName]);
 
         if (self.props.show_limit_control) {
-            $('.limitSelection ul', domElem).hide();
             for (var i = 0; i < numbers.length; i++) {
-                $('.limitSelection ul', domElem).append('<li value="' + numbers[i] + '"><span>' + getFilterLimitAsString(numbers[i]) + '</span></li>');
+                var currentValue = getFilterLimitAsString(numbers[i]);
+                var optionSelected = '';
+                if (selectedValue === currentValue) {
+                    optionSelected = 'selected';
+                }
+                selectionMarkup += '<option value="' + numbers[i] + '"' + optionSelected + '>' + currentValue + '</option>';
             }
-            $('.limitSelection ul li:last', domElem).addClass('last');
+            selectionMarkup += '</select></div>';
+
+            $('.limitSelection', domElem).append(selectionMarkup);
+
+            var $limitSelect = $('.limitSelection select', domElem);
 
             if (!self.isEmpty) {
-                var show = function() {
-                    $('.limitSelection ul', domElem).show();
-                    $('.limitSelection', domElem).addClass('visible');
-                    $(document).on('mouseup.limitSelection', function(e) {
-                        if (!$(e.target).closest('.limitSelection').length) {
-                            hide();
-                        }
-                    });
-                };
-                var hide = function () {
-                    $('.limitSelection ul', domElem).hide();
-                    $('.limitSelection', domElem).removeClass('visible');
-                    $(document).off('mouseup.limitSelection');
-                };
-                $('.limitSelection div', domElem).on('click', function () {
-                    $('.limitSelection', domElem).is('.visible') ? hide() : show();
-                });
-                $('.limitSelection ul li', domElem).on('click', function (event) {
-                    var limit = parseInt($(event.target).closest('li').attr('value'));
 
-                    hide();
+                $limitSelect.on('change', function (event) {
+                    var limit = $(this).val();
+
                     if (limit != self.param[limitParamName]) {
                         setLimitValue(self.param, limit);
-                        $('.limitSelection>div>span', domElem).text( getFilterLimitAsString(limit)).attr('value', limit);
                         self.reloadAjaxDataTable();
 
                         var data = {};
@@ -572,8 +564,10 @@ $.extend(DataTable.prototype, UIControl.prototype, {
                 });
             }
             else {
-                $('.limitSelection', domElem).toggleClass('disabled');
+                $limitSelect.toggleClass('disabled');
             }
+
+            $limitSelect.material_select();
         }
         else {
             $('.limitSelection', domElem).hide();
