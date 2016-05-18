@@ -158,33 +158,45 @@ var piwikHelper = {
         var domElem = $(domSelector);
         var buttons = [];
 
-        $('[role]', domElem).each(function(){
-            var role  = $(this).attr('role');
-            var title = $(this).attr('title');
-            var text  = $(this).val();
+        var content = '<div class="modal"><div class="modal-content"></div>';
+        content += '<div class="modal-footer"></div></div>';
 
-            var button = {text: text};
+        var $content = $(content).hide();
+        var $footer = $content.find('.modal-footer');
+
+        $('[role]', domElem).each(function(){
+            var $button = $(this);
+            var role  = $button.attr('role');
+            var title = $button.attr('title');
+            var text  = $button.val();
+            $button.hide();
+
+            var button = $('<a href="javascript:;" class="modal-action modal-close waves-effect waves-green btn-flat "></a>');
+            button.text(text);
+            if (title) {
+                button.attr('title', title);
+            }
 
             if(typeof handles[role] == 'function') {
-                button.click = function(){ $(this).dialog("close"); handles[role].apply()};
+                button.on('click', function(){
+                    $content.closeModal();
+                    handles[role].apply()
+                    $content = null;
+                });
             } else {
-                button.click = function(){ $(this).dialog("close");};
+                button.on('click', function(){
+                    $content.closeModal();
+                    $content = null;
+                });
             }
 
-            if (title) {
-                button.title = title;
-            }
-            buttons.push(button);
-            $(this).hide();
+            $footer.append(button);
         });
 
-        domElem.dialog({
-            resizable: false,
-            modal: true,
-            buttons: buttons,
-            width: 650,
-            position: ['center', 90]
-        });
+        $('body').append($content);
+        $content.find('.modal-content').append(domElem);
+        domElem.show();
+        $content.openModal();
     },
 
     getQueryStringWithParametersModified: function (queryString, newParameters) {
