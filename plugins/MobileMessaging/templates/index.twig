@@ -16,7 +16,7 @@
                  title="{{ 'MobileMessaging_Settings_LetUsersManageAPICredential'|translate|e('html_attr') }}"
                  value="{% if delegatedManagement %}1{% else %}0{% endif %}">
             </div>
-            <input piwik-save-button ng-click="delegateManagement.save()" saving="delegateManagement.isLoading">
+            <div piwik-save-button onconfirm="delegateManagement.save()" saving="delegateManagement.isLoading"></div>
         </div>
     </div>
     {% endif %}
@@ -72,7 +72,6 @@
 
                     <div class="form-group row addPhoneNumber">
                         <div class="col s12 m6">
-                            <div piwik-activity-indicator loading="managePhoneNumber.isAddingPhonenumber"></div>
 
                             <div class="countryCode left">
                                 <span class="countryCodeSymbol">+</span>
@@ -95,7 +94,7 @@
                             <div class="addNumber left valign-wrapper">
                                 <div piwik-save-button
                                      disabled="!managePhoneNumber.canAddNumber || managePhoneNumber.isAddingPhonenumber"
-                                     ng-click="managePhoneNumber.addPhoneNumber()"
+                                     onconfirm="managePhoneNumber.addPhoneNumber()"
                                      class="valign" value='{{ 'General_Add'|translate }}'></div>
                             </div>
 
@@ -105,22 +104,19 @@
                             {{ 'MobileMessaging_Settings_SuspiciousPhoneNumber'|translate('54184032') }}
                             </div>
 
-                            <div id="ajaxErrorAddPhoneNumber"></div>
-
                         </div>
                         <div class="col s12 m6 form-help">
                             {{ strHelpAddPhone }}
                         </div>
                     </div>
 
+                    <div id="ajaxErrorAddPhoneNumber"></div>
+                    <div piwik-activity-indicator loading="managePhoneNumber.isAddingPhonenumber"></div>
+
                     {% if phoneNumbers|length > 0 %}
                         <h3>{{ 'MobileMessaging_Settings_ManagePhoneNumbers'|translate }}</h3>
                         <br/>
                     {% endif %}
-
-                    {{ ajax.errorDiv('invalidVerificationCodeAjaxError') }}
-
-                    <div piwik-activity-indicator loading="managePhoneNumber.isChangingPhoneNumber"></div>
 
                     {% for phoneNumber, validated in phoneNumbers %}
                         <div class="form-group row">
@@ -137,14 +133,14 @@
                                          ng-hide="managePhoneNumber.isActivated[{{ loop.index }}]"
                                          value='{{ 'MobileMessaging_Settings_ValidatePhoneNumber'|translate }}'
                                          disabled="!managePhoneNumber.validationCode[{{ loop.index }}] || managePhoneNumber.isChangingPhoneNumber"
-                                         ng-click='managePhoneNumber.validateActivationCode({{ phoneNumber|json_encode }}, {{ loop.index }})'
+                                         onconfirm='managePhoneNumber.validateActivationCode({{ phoneNumber|json_encode }}, {{ loop.index }})'
                                          ></div>
                                 {% endif %}
 
                                 <div piwik-save-button
                                      value='{{ 'General_Remove'|translate }}'
                                      disabled="managePhoneNumber.isChangingPhoneNumber"
-                                     ng-click="managePhoneNumber.removePhoneNumber({{ phoneNumber|json_encode }})"
+                                     onconfirm="managePhoneNumber.removePhoneNumber({{ phoneNumber|json_encode }})"
                                      ></div>
                             </div>
 
@@ -158,6 +154,10 @@
                             {% endif %}
                         </div>
                     {% endfor %}
+
+                    {{ ajax.errorDiv('invalidVerificationCodeAjaxError') }}
+
+                    <div piwik-activity-indicator loading="managePhoneNumber.isChangingPhoneNumber"></div>
 
                 </div>
 

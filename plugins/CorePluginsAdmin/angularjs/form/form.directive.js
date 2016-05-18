@@ -28,7 +28,7 @@
                         element.find('input[type=text]').keypress(function (e) {
                             var key = e.keyCode || e.which;
                             if (key == 13) {
-                                element.find('[piwik-save-button]').triggerHandler('click');
+                                element.find('[piwik-save-button] input').triggerHandler('click');
                             }
                         });
                     });

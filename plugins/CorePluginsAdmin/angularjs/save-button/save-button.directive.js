@@ -22,7 +22,8 @@
             scope: {
                 saving: '=?',
                 value: '@?',
-                disabled: '=?'
+                disabled: '=?',
+                onconfirm: '&?'
             },
             templateUrl: 'plugins/CorePluginsAdmin/angularjs/save-button/save-button.directive.html?cb=' + piwik.cacheBuster
         };

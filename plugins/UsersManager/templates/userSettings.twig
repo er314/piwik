@@ -98,8 +98,8 @@
                 </div>
             {% endif %}
 
-            <input piwik-save-button ng-click="personalSettings.save()"
-                   saving="personalSettings.loading">
+            <div piwik-save-button onconfirm="personalSettings.save()"
+                 saving="personalSettings.loading"></div>
 
         </form>
     {% endblock %}

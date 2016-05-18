@@ -132,10 +132,10 @@
         </div>
 
         <input type="hidden" name="goalIdUpdate" value=""/>
-        <input piwik-save-button
-               saving="manageGoals.isLoading"
-               ng-click="manageGoals.save()"
-               ng-value="manageGoals.goal.submitText" />
+        <div piwik-save-button
+             saving="manageGoals.isLoading"
+             onconfirm="manageGoals.save()"
+             ng-value="manageGoals.goal.submitText"></div>
 
         {% if onlyShowAddNewGoal is not defined %}
             <div class='entityCancel' ng-show="manageGoals.showEditGoal" ng-click="manageGoals.showListOfReports()">

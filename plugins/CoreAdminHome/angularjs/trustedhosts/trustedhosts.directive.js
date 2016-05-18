@@ -7,7 +7,7 @@
 
 /**
  * Usage:
- * <div piwik-save-button>
+ * <div piwik-trusted-hosts-setting>
  */
 (function () {
     angular.module('piwikApp').directive('piwikTrustedHostsSetting', piwikTrustedHostsSetting);

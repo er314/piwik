@@ -36,7 +36,7 @@
         <div piwik-save-button id='apiAccountSubmit'
              disabled="!manageProvider.canBeUpdated"
              saving="manageProvider.isUpdatingAccount"
-             ng-click="manageProvider.updateAccount()"></div>
+             onconfirm="manageProvider.updateAccount()"></div>
 
         {% for smsProvider, description in smsProviders %}
             <div class='providerDescription'

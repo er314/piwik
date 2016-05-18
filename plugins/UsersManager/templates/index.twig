@@ -126,7 +126,7 @@
                     </div>
 
                     <div piwik-save-button id="giveUserAccessToViewReports"
-                           ng-click="giveViewAccess.giveAccess()"
+                         onconfirm="giveViewAccess.giveAccess()"
                            saving="giveViewAccess.isLoading"
                            value="{{ 'UsersManager_GiveViewAccess'|translate("'" ~ defaultReportSiteName ~ "'")|e('html_attr') }}"></div>
 

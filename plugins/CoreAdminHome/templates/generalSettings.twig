@@ -81,7 +81,7 @@
             </div>
         </div>
 
-        <div ng-click="archivingSettings.save()" saving="archivingSettings.isLoading" piwik-save-button></div>
+        <div onconfirm="archivingSettings.save()" saving="archivingSettings.isLoading" piwik-save-button></div>
     </div>
 </div>
 {% if isGeneralSettingsAdminEnabled %}
@@ -142,7 +142,7 @@
                 </div>
             </div>
 
-            <div ng-click="mailSettings.save()" saving="mailSettings.isLoading" piwik-save-button></div>
+            <div onconfirm="mailSettings.save()" saving="mailSettings.isLoading" piwik-save-button></div>
         </div>
     </div>
 {% endif %}
@@ -216,7 +216,7 @@
             </form>
         </div>
 
-        <div ng-click="brandingSettings.save()" saving="brandingSettings.isLoading" piwik-save-button></div>
+        <div onconfirm="brandingSettings.save()" saving="brandingSettings.isLoading" piwik-save-button></div>
     </div>
 </div>
 
@@ -257,7 +257,7 @@
                 </a>
             </div>
 
-            <div ng-click="trustedHosts.save()" saving="trustedHosts.isLoading" piwik-save-button></div>
+            <div onconfirm="trustedHosts.save()" saving="trustedHosts.isLoading" piwik-save-button></div>
         {% endif %}
     </div>
 

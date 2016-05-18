@@ -358,7 +358,13 @@
                      title="Select a website">
                 </div>
 
-                <input piwik-save-button saving="false">
+                <div piwik-save-button></div>
+                <div piwik-save-button
+                     onconfirm="myController.save()"
+                     disabled="myController.isDisabled"
+                     value="Changed button text"
+                     saving="myController.isLoading">
+                </div>
             </div>
         </div>
         <div class="demo-code">
@@ -453,7 +459,13 @@
          title=&quot;Select a website&quot;&gt;
     &lt;/div&gt;
 
-    &lt;input piwik-save-button saving=&quot;false&quot;&gt;
+    &lt;div piwik-save-button&gt;&lt;/div&gt;
+    &lt;div piwik-save-button
+         onconfirm=&quot;myController.save()&quot;
+         disabled=&quot;myController.isDisabled&quot;
+         value=&quot;Changed button text&quot;
+         saving=&quot;myController.isLoading&quot;&gt;
+    &lt;/div&gt;
 &lt;/div&gt;</pre>
             <p>If you do not want to use one ouf our form fields we recommend to add the class <code>browser-default</code> to the input or select element.</p>
         </div>
