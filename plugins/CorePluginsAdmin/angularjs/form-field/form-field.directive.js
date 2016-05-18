@@ -115,7 +115,12 @@
                     });
 
 
-                } else {
+                } else if (hasUiControl(field, 'text')
+                        || hasUiControl(field, 'textarea')
+                        || hasUiControl(field, 'password')
+                        || hasUiControl(field, 'email')
+                        || hasUiControl(field, 'url')
+                        || hasUiControl(field, 'search')) {
                     Materialize.updateTextFields();
                     scope.$watch('formField.value', function (val, oldVal) {
                         if (val !== oldVal) {

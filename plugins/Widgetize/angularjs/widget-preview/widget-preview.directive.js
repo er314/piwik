@@ -44,7 +44,11 @@
                 var self = this;
 
                 this.getInputFormWithHtml = function (inputId, htmlEmbed) {
-                    return '<textarea piwik-select-on-focus readonly="true" class="codeblock" id="' + inputId + '">' + htmlEmbed.replace(/"/g, '&quot;') + '</textarea>';
+                    return '<pre piwik-select-on-focus readonly="true"  id="' + inputId + '">' + this.htmlentities(htmlEmbed) + '</pre>';
+                };
+
+                this.htmlentities = function (s) {
+                    return piwik.helper.escape(piwik.helper.htmlEntities(s));
                 };
 
                 this.callbackAddExportButtonsUnderWidget = function (widgetUniqueId, loadedWidgetElement) {
@@ -73,9 +77,6 @@
                         + '</div>'
                     );
 
-                    // We then replace the div iframeDivToExport with the actual Iframe html
-                    $(self.widgetPreviewSelector).html(widgetIframeHtml);
-
                     // Finally we append the content to the parent widget DIV
                     $(loadedWidgetElement)
                         .parent()
@@ -87,7 +88,6 @@
             compile: function (element, attrs) {
 
                 return function (scope, element, attrs, controller) {
-                    controller.widgetPreviewSelector = attrs.piwikWidgetPreview;
                     element.widgetPreview({
                         onPreviewLoaded: controller.callbackAddExportButtonsUnderWidget
                     });

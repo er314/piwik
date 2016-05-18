@@ -83,7 +83,7 @@
                 self.trackingCode = response.value;
 
                 if (trackingCodeChangedManually) {
-                    var jsCodeTextarea = $('#image-tracking-text textarea');
+                    var jsCodeTextarea = $('#image-tracking-text .codeblock');
                     jsCodeTextarea.effect("highlight", {}, 1500);
                 }
             });

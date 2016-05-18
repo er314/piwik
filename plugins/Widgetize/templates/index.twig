@@ -34,7 +34,7 @@
 
         <br />
 
-        <textarea piwik-select-on-focus class="codeblock" ng-model="exportWidget.dashboardCode"> </textarea>
+        <pre piwik-select-on-focus ng-bind="exportWidget.dashboardCode"> </pre>
 
         <br />
         You can also widgetize the all websites dashboard in an IFRAME
@@ -42,15 +42,14 @@
 
         <br />
 
-        <textarea piwik-select-on-focus class="codeblock"  ng-model="exportWidget.allWebsitesDashboardCode"> </textarea>
+        <pre piwik-select-on-focus ng-bind="exportWidget.allWebsitesDashboardCode"> </pre>
     </p>
 </div>
 <div piwik-content-block content-title="Widgetize reports">
     <p>Select a report, and copy paste in your page the embed code below the widget:
 
-    <div piwik-widget-preview="#iframeDivToExport"></div>
+    <div piwik-widget-preview></div>
 
-    <div id='iframeDivToExport' style='display:none;'></div>
 </div>
 </div>
 </div>

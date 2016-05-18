@@ -208,8 +208,8 @@
             <p>{{ 'CoreAdminHome_JSTracking_CodeNoteBeforeClosingHead'|translate("&lt;/head&gt;")|raw }}</p>
 
             <div id="javascript-text">
-                <textarea piwik-select-on-focus class="codeblock"
-                          ng-model="jsTrackingCode.trackingCode"> </textarea>
+                <pre piwik-select-on-focus class="codeblock"
+                     ng-bind="jsTrackingCode.trackingCode"> </pre>
             </div>
         </div>
     </div>
@@ -285,8 +285,8 @@
             <h3>{{ 'CoreAdminHome_ImageTrackingLink'|translate }}</h3>
 
             <div id="image-tracking-text">
-                <textarea piwik-select-on-focus class="codeblock"
-                          ng-model="imageTrackingCode.trackingCode"> </textarea>
+                <pre piwik-select-on-focus
+                          ng-bind="imageTrackingCode.trackingCode"> </pre>
             </div>
         </div>
     </div>

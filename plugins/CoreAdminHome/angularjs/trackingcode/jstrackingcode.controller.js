@@ -106,7 +106,7 @@
                 self.trackingCode = response.value;
 
                 if(trackingCodeChangedManually) {
-                    var jsCodeTextarea = $('#javascript-text textarea');
+                    var jsCodeTextarea = $('#javascript-text .codeblock');
                     jsCodeTextarea.effect("highlight", {}, 1500);
                 }
             });

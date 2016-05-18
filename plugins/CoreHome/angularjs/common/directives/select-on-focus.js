@@ -21,7 +21,8 @@
 
                 var focusedElement = null;
 
-                var isPreElement = (element.prop('tagName') + '').toLowerCase() === 'pre';
+                var tagName = (element.prop('tagName') + '').toLowerCase();
+                var elementSupportsSelect = tagName === 'textarea';
 
                 function onFocusHandler(event) {
                     if (focusedElement !== this) {
@@ -41,19 +42,19 @@
                     focusedElement = null;
                 }
 
-                if (isPreElement) {
-                    element.on('click', onClickHandler);
-                } else {
+                if (elementSupportsSelect) {
                     element.on('focus', onFocusHandler);
                     element.on('blur', onBlurHandler);
+                } else {
+                    element.on('click', onClickHandler);
                 }
 
                 scope.$on('$destroy', function() {
-                    if (isPreElement) {
-                        element.off('click', onClickHandler);
-                    } else {
+                    if (elementSupportsSelect) {
                         element.off('focus', onFocusHandler);
                         element.off('blur', onBlurHandler);
+                    } else {
+                        element.off('click', onClickHandler);
                     }
                 });
             }

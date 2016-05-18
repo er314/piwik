@@ -1,12 +1,8 @@
-#javascript-output-section textarea, #image-link-output-section textarea {
-    font-family: "Courier New", Courier, monospace;
-}
-
-#javascript-output-section textarea {
+#javascript-output-section .codeblock {
     height: 312px;
 }
 
-#image-link-output-section textarea {
+#image-link-output-section .codeblock {
     height: 92px;
 }
 
