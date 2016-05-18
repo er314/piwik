@@ -19,25 +19,3 @@
        url(../../../../libs/bower_components/materialize/dist/font/roboto/Roboto-Bold.woff) format('woff'),
        url(../../../../libs/bower_components/materialize/dist/font/roboto/Roboto-Bold.ttf) format('truetype');
 }
-
-@font-face {
-  font-family: 'Noto Sans';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Noto Sans'),
-  local('NotoSans'),
-  url(../../../../libs/font-noto/NotoSans-Regular.woff2) format('woff2'),
-  url(../../../../libs/font-noto/NotoSans-Regular.woff) format('woff'),
-  url(../../../../libs/font-noto/NotoSans-Regular.ttf) format('truetype');
-}
-
-@font-face {
-  font-family: 'Noto Sans';
-  font-style: normal;
-  font-weight: 700;
-  src: local('Noto Sans'),
-  local('NotoSans'),
-  url(../../../../libs/font-noto/NotoSans-Bold.woff2) format('woff2'),
-  url(../../../../libs/font-noto/NotoSans-Bold.woff) format('woff'),
-  url(../../../../libs/font-noto/NotoSans-Bold.ttf) format('truetype');
-}

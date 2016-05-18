@@ -16,10 +16,8 @@
         this.dataWasPurged = false;
         this.showPurgeNowLink = true;
         this.model = reportDeletionModel;
-        var modified = false;
 
         this.save = function () {
-            modified = false;
             var method = 'PrivacyManager.setScheduleReportDeletionSettings';
             reportDeletionModel.model.savePurageDataSettings(this, method, {
                 deleteLowestInterval: this.deleteLowestInterval
@@ -28,7 +26,7 @@
 
         this.executeDataPurgeNow = function () {
 
-            if (modified) {
+            if (reportDeletionModel.isModified) {
                 piwikHelper.modalConfirm('#saveSettingsBeforePurge', {yes: function () {}});
                 return;
             }

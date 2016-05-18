@@ -19,22 +19,32 @@
             showEstimate: false,
             loadingEstimation: false,
             estimation: '',
+            isModified: false,
             isEitherDeleteSectionEnabled: isEitherDeleteSectionEnabled,
             reloadDbStats: reloadDbStats,
             savePurageDataSettings: savePurageDataSettings,
-            updateSettings: updateSettings
+            updateSettings: updateSettings,
+            initSettings: initSettings
         };
 
         return model;
 
         function updateSettings(settings)
         {
+            initSettings(settings);
+            model.isModified = true;
+        }
+
+        function initSettings(settings)
+        {
             model.settings = angular.merge({}, model.settings, settings);
+            model.reloadDbStats();
         }
 
         function savePurageDataSettings(controller, apiMethod, settings)
         {
             controller.isLoading = true;
+            model.isModified = false;
 
             return piwikApi.post({
                 module: 'API', method: apiMethod

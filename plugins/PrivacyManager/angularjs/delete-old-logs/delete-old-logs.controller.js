@@ -30,11 +30,10 @@
 
         this.reloadDbStats = function () {
             reportDeletionModel.updateSettings(this.getSettings());
-            reportDeletionModel.reloadDbStats();
         }
 
         $timeout(function () {
-            self.reloadDbStats(); // init values in model
+            reportDeletionModel.initSettings(this.getSettings());
         });
 
         this.save = function () {
