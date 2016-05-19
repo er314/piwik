@@ -26,6 +26,22 @@
     </a>
 
     <div ng-show="view.showSitesList" class="dropdown">
+
+        <div class="custom_select_search" ng-show="autocompleteMinSites <= model.sites.length || view.searchTerm">
+            <input type="text"
+                   piwik-focus-if="view.showSitesList"
+                   ng-click="view.searchTerm=''"
+                   ng-model="view.searchTerm"
+                   ng-change="model.searchSite(view.searchTerm)"
+                   placeholder="{{ 'General_Search' | translate }}"
+                   class="websiteSearch inp browser-default"/>
+            <img title="Clear"
+                 ng-show="view.searchTerm"
+                 ng-click="view.searchTerm=''; model.loadInitialSites()"
+                 class="reset"
+                 src="plugins/CoreHome/images/reset_search.png"/>
+        </div>
+
         <div ng-if="allSitesLocation=='top' && showAllSitesItem"
              ng-include="'siteselector_allsiteslink.html'"></div>
 
@@ -50,19 +66,5 @@
         <div ng-if="allSitesLocation=='bottom' && showAllSitesItem"
              ng-include="'siteselector_allsiteslink.html'"></div>
 
-        <div class="custom_select_search" ng-show="autocompleteMinSites <= model.sites.length || view.searchTerm">
-            <input type="text"
-                   piwik-focus-if="view.showSitesList"
-                   ng-click="view.searchTerm=''"
-                   ng-model="view.searchTerm"
-                   ng-change="model.searchSite(view.searchTerm)"
-                   placeholder="{{ 'General_Search' | translate }}"
-                   class="websiteSearch inp browser-default"/>
-            <img title="Clear"
-                 ng-show="view.searchTerm"
-                 ng-click="view.searchTerm=''; model.loadInitialSites()"
-                 class="reset"
-                 src="plugins/CoreHome/images/reset_search.png"/>
-        </div>
     </div>
 </div>

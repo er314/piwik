@@ -15,6 +15,22 @@
   border-color: #a9a399;
 }
 
+#periodString td {
+  vertical-align: top;
+}
+
+#periodString {
+  .ui-widget-header,
+  .ui-datepicker {
+    &.ui-helper-clearfix:before, &.ui-helper-clearfix:after {
+      display: inline;
+      clear: none;
+      content: none !important;
+    }
+  }
+
+}
+
 #periodString .calendar-icon {
   width: 13px;
   height: 15px;
@@ -41,12 +57,10 @@
 
 #periodString .period-date,
 #periodString .period-range {
-  float: left;
   padding: 0 16px 0 0;
 }
 
 #periodString .period-type {
-  float: left;
   padding: 0;
 }
 

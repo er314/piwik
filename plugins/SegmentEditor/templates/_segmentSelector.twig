@@ -43,7 +43,7 @@
 
     <div class="segment-row-inputs">
         <div class="segment-input metricListBlock">
-            <select title="{{ 'SegmentEditor_ChooseASegment'|translate }}" class="metricList">
+            <select title="{{ 'SegmentEditor_ChooseASegment'|translate }}" class="metricList browser-default">
                 {% for category,segmentsInCategory in segmentsByCategory %}
                 <optgroup label="{{ category }}">
                     {% for segmentInCategory in segmentsInCategory %}
@@ -54,7 +54,7 @@
             </select>
         </div>
         <div class="segment-input metricMatchBlock">
-            <select title="{{ 'General_Matches'|translate }}">
+            <select title="{{ 'General_Matches'|translate }}" class="browser-default">
                 <option value="==">{{ 'General_OperationEquals'|translate }}</option>
                 <option value="!=">{{ 'General_OperationNotEquals'|translate }}</option>
                 <option value="<=">{{ 'General_OperationAtMost'|translate }}</option>

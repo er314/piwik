@@ -84,7 +84,7 @@ div.scrollable {
     border-radius: 3px;
     position: absolute;
     left: -1px;
-    top: -1px;
+    top: 37px;
 }
 
 .segment-element .custom_select_search {
@@ -203,7 +203,6 @@ div.scrollable {
 .segment-element .segment-content .segment-rows {
     padding: 4px;
     margin: 0 3px 0 0;
-    background: @theme-color-background-base;
     border: 1px solid #a9a399;
     border-radius: 3px 3px 3px 3px;
     position: relative;
@@ -257,6 +256,7 @@ div.scrollable {
 
 .segment-element .segment-content .segment-add-or > div {
     border: 2px dashed #EFEFEB;
+    background-color: #efefeb;
 }
 
 .segment-element .segment-content .segment-row {
@@ -503,9 +503,11 @@ div.scrollable {
 }
 
 .segmentEditorPanel.expanded .segmentationContainer {
-    width: 240px;
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
+    .dropdown-body {
+        width: 240px;
+    }
 }
 
 .segmentEditorPanel.expanded ul.submenu {
@@ -533,7 +535,7 @@ div.scrollable {
     width: 13px;
     height: 13px;
     right: 23px;
-    top: 48px;
+    top: 24px;
     cursor: pointer;
 }
 
@@ -672,8 +674,7 @@ a.metric_category {
 }
 
 .dropdown-body {
-    background-color: #f7f7f7;
-    border-top-width: 0px;
+    border-top-width: 0;
     display: none;
     border-bottom-left-radius: 4px;
     border-bottom-right-radius: 4px;
@@ -682,11 +683,6 @@ a.metric_category {
 .segmentEditorPanel.expanded .dropdown-body {
     border-top-left-radius: 0;
     border-top-right-radius: 0;
-}
-
-.segmentEditorPanel:hover .dropdown-body {
-    border-color: #a9a399;
-    background: #f1f0eb
 }
 
 .segmentEditorPanel.expanded {

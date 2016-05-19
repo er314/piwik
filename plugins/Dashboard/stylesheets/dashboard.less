@@ -137,27 +137,6 @@
   height: 30px;
 }
 
-.dashboardSettings {
-  position: absolute;
-  z-index: 120;
-  background: #f7f7f7;
-  border: 1px solid #e4e5e4;
-  border-radius: 4px;
-  color: @theme-color-text-light;
-  cursor: pointer;
-  overflow: hidden;
-}
-
-.dashboardSettings:hover {
-  background: #f1f0eb;
-  border-color: #a9a399;
-}
-
-.dashboardSettings.expanded {
-  z-index: 1020; /* More than .jqplot-seriespicker-popover (1010) */
-  min-width: 800px;
-}
-
 .dashboardSettings > span {
   background: url(plugins/Morpheus/images/sort_subtable_desc.png) right center no-repeat;
   padding-right: 20px;
@@ -173,6 +152,12 @@
 .dashboardSettings.expanded ul.submenu {
   display: block;
   list-style: square outside none;
+  z-index: 1020; /* More than .jqplot-seriespicker-popover (1010) */
+}
+
+.dashboardSettings.expanded .dropdown {
+  min-width: 800px;
+  background-color: @theme-color-background-contrast;
 }
 
 .dashboardSettings > ul.submenu > li {
@@ -256,8 +241,6 @@
 
 .widgetpreview-base {
   clear: both;
-  min-height: 600px;
-  -height: 600px;
 }
 
 .addWidget, .manageDashboard {
@@ -307,14 +290,8 @@ ul.widgetpreview-widgetlist {
 }
 
 div.widgetpreview-preview {
-  margin-left: 380px;
   width: 500px;
-}
-
-.dashboardSettings {
-  min-height: 0;
-  height: auto;
-  margin-right: 10px;
+  float: left;
 }
 
 .dashboardSettings .submenu {
@@ -338,6 +315,7 @@ div.widgetpreview-preview {
   line-height: 20px;
   padding: 0 25px 0 5px;
   color: @theme-color-text-light;
+  width: 200px;
 }
 
 .dashboardSettings .submenu ul li:hover {
@@ -366,6 +344,7 @@ div.widgetpreview-preview {
 .dashboardSettings.expanded .widgetpreview-widgetlist,
 .dashboardSettings.expanded .widgetpreview-preview {
   display: block;
+  z-index: 333999;
 }
 
 .widgetPlaceholder {

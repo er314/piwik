@@ -229,9 +229,16 @@ table.dataTable img {
 }
 
 .dataTableNext,
-.dataTablePrevious,
+.dataTablePrevious {
+  visibility: hidden;
+}
+
 .dataTableSearchPattern {
   display: none;
+}
+
+.dataTablePaginationControl {
+  margin: 5px 0 !important;
 }
 
 .dataTableFeatures .loadingPiwik {
@@ -503,10 +510,6 @@ td.cellSubDataTable .loadingPiwik {
       font-size: 18px;
     }
   }
-}
-
-.dataTablePaginationControl {
-  margin: 4px 0 8px;
 }
 
 #dashboardWidgetsArea .widget,

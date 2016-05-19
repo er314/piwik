@@ -741,7 +741,7 @@ $.extend(DataTable.prototype, UIControl.prototype, {
             var totalRows = Number(self.param.totalRows);
             if (self.param.keep_summary_row == 1) --totalRows;
             if (offsetEnd < totalRows) {
-                $(this).css('display', 'inline');
+                $(this).css('visibility', 'visible');
             }
         });
         // bind the click event to trigger the ajax request with the new offset
@@ -758,7 +758,7 @@ $.extend(DataTable.prototype, UIControl.prototype, {
         $prev.each(function () {
             var offset = 1 + Number(self.param.filter_offset);
             if (offset != 1) {
-                $(this).css('display', 'inline');
+                $(this).css('visibility', 'visible');
             }
         });
 

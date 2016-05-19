@@ -1,16 +1,17 @@
 <div class="dataTableFeatures">
     <div class="dataTableFooterNavigation">
 
-            {% if properties.show_offset_information %}
-                <div class="row">
-                    <span class="dataTablePages"></span>
-                </div>
-            {% endif %}
-
-            {% if properties.show_pagination_control %}
+            {% if properties.show_offset_information or properties.show_pagination_control %}
                 <div class="row dataTablePaginationControl">
-                    <span class="dataTablePrevious">&lsaquo; {% if clientSideParameters.dataTablePreviousIsFirst is defined %}{{ 'General_First'|translate }}{% else %}{{ 'General_Previous'|translate }}{% endif %} </span>
-                    <span class="dataTableNext">{{ 'General_Next'|translate }} &rsaquo;</span>
+                    {% if properties.show_pagination_control %}
+                        <span class="dataTablePrevious">&lsaquo; {% if clientSideParameters.dataTablePreviousIsFirst is defined %}{{ 'General_First'|translate }}{% else %}{{ 'General_Previous'|translate }}{% endif %} </span>
+                    {% endif %}
+                    {% if properties.show_offset_information %}
+                        <span class="dataTablePages"></span>
+                    {% endif %}
+                    {% if properties.show_pagination_control %}
+                        <span class="dataTableNext">{{ 'General_Next'|translate }} &rsaquo;</span>
+                    {% endif %}
                 </div>
             {% endif %}
 
