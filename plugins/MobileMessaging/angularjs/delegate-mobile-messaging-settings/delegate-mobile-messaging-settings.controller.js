@@ -25,7 +25,7 @@
                 var UI = require('piwik/UI');
                 var notification = new UI.Notification();
                 notification.show(_pk_translate('CoreAdminHome_SettingsSaveSuccess'), {
-                    context: 'success'
+                    id: 'mobileMessagingSettings', context: 'success'
                 });
                 notification.scrollToNotification();
                 

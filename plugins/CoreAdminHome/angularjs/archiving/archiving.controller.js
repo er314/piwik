@@ -33,7 +33,9 @@
 
                 var UI = require('piwik/UI');
                 var notification = new UI.Notification();
-                notification.show(_pk_translate('CoreAdminHome_SettingsSaveSuccess'), {context: 'success'});
+                notification.show(_pk_translate('CoreAdminHome_SettingsSaveSuccess'), {
+                    id: 'generalSettings', context: 'success'
+                });
                 notification.scrollToNotification();
             }, function () {
                 self.isLoading = false;

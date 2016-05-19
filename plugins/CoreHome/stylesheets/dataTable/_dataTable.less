@@ -137,11 +137,6 @@ table.dataTable img {
   margin-left: 0;
 }
 
-div.dataTable, div.dataTable > .dataTableWrapper {
-  margin-bottom: 9px; // same height as expand/contract button (so datatable height will encompass the
-                      // expand/contract button)
-}
-
 .subDataTable > .dataTableWrapper {
   width: 95%;
 }
@@ -182,7 +177,6 @@ div.dataTable, div.dataTable > .dataTableWrapper {
 .dataTableSearchPattern input {
   vertical-align: top;
   font-size: 10px;
-  color: #454545;
   border: 0;
   background: transparent;
   width: 21px;
@@ -191,6 +185,10 @@ div.dataTable, div.dataTable > .dataTableWrapper {
   opacity: 0;
   filter: Alpha(opacity=0);
   cursor: pointer;
+  color: #adadad;
+  &:hover {
+    color: #333;
+  }
 }
 
 .dataTableSearchPattern .searchInput {
@@ -218,7 +216,7 @@ div.dataTable, div.dataTable > .dataTableWrapper {
 }
 
 #dashboard .datatableRelatedReports {
-  margin-top: 0px;
+  margin-top: 0;
 }
 
 .datatableRelatedReports span {
@@ -415,7 +413,7 @@ tr td.label img.plusMinus {
 }
 
 .widget .pk-emptyDataTable {
-  padding-left: 0px;
+  padding-left: 0;
   padding-top: 33px;
   text-align: center;
 }
@@ -461,9 +459,11 @@ td.cellSubDataTable .loadingPiwik {
 }
 
 .dataTableControls {
-  position: absolute;
-  top: 24px;
-  right: 12px;
+  text-align: left;
+
+  &.col {
+    padding-right: 0;
+  }
 
   .dropdown-content {
     a {
@@ -509,13 +509,16 @@ td.cellSubDataTable .loadingPiwik {
   margin: 4px 0 8px;
 }
 
-.theWidgetContent {
+#dashboardWidgetsArea .widget,
+.theWidgetContent > div:not(#dashboard) {
   &:hover {
+    .limitSelection,
     .dataTableControls {
-      display: block;
+      visibility: visible;
     }
   }
+  .limitSelection,
   .dataTableControls {
-    display: none;
+    visibility: hidden;
   }
 }

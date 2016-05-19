@@ -91,7 +91,7 @@
                 noclear: true,
                 type: 'toast',
                 style: {display: 'inline-block', marginTop: '10px'},
-                id: 'usersManagerAccessUpdated'
+                id: 'scheduledReportSuccess'
             });
 
             piwikHelper.refreshAfter(2);

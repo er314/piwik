@@ -24,7 +24,8 @@
             }, postParams).then(function (success) {
                 var UI = require('piwik/UI');
                 var notification = new UI.Notification();
-                notification.show(_pk_translate('CoreAdminHome_SettingsSaveSuccess'), {context: 'success'});
+                notification.show(_pk_translate('CoreAdminHome_SettingsSaveSuccess'), {
+                    id: 'PersonalSettingsSuccess', context: 'success'});
                 notification.scrollToNotification();
 
                 self.loading = false;

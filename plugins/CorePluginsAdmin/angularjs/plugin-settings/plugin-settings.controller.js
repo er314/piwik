@@ -60,7 +60,9 @@
 
                 var UI = require('piwik/UI');
                 var notification = new UI.Notification();
-                notification.show(_pk_translate('CoreAdminHome_PluginSettingsSaveSuccess'), {context: 'success'});
+                notification.show(_pk_translate('CoreAdminHome_PluginSettingsSaveSuccess'), {
+                    id: 'generalSettings', context: 'success'
+                });
                 notification.scrollToNotification();
 
             }, function () {

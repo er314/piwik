@@ -1,9 +1,11 @@
 .limitSelection {
-  float: right;
+  text-align: right;
   position: relative;
   margin-left: 5px;
   min-height: 20px;
   z-index: 1;
+  padding-top: 4px;
+  vertical-align: top;
 }
 
 .limitSelection.hidden {
@@ -11,25 +13,48 @@
 }
 
 .limitSelection > div {
+  .select-wrapper:hover {
+    input.select-dropdown {
+      color: #333;
+      background-color: #edecec;
+    }
+    span.caret {
+        color: #333 !important;
+        z-index: 1;
+    }
+  }
+
   .select-wrapper {
     input.select-dropdown {
       height: 30px;
       line-height: 30px;
       font-size: 16px;
       margin-bottom: 0;
-      padding-left: 5px;
-      border: 1px solid #ccc;
+      padding: 2px 0 1px 5px;
+      border: 0;
+      border-radius: 2px;
+      transition: all 0s;
+      color: #adadad;
+      &:hover {
+        color: #333;
+        border-color: #333;
+        background-color: #edecec;
+      }
     }
     span.caret {
-      top: 3px;
-      color: #ccc;
+      top: 9px;
+      color: #adadad;
     }
   }
 
-  margin-top: 0;
-  display: block;
+  margin-top: 3px;
+  display: inline-block;
   width: 42px;
   height: 30px;
+}
+
+#dashboardWidgetsArea .limitSelection .select-wrapper span.caret {
+  top: 7px;
 }
 
 .limitSelection.disabled > div {
@@ -69,7 +94,3 @@
   background-color: @color-silver-l95;
 }
 
-.limitSelection span {
-  padding-top: 5px;
-  display: inline-block;
-}

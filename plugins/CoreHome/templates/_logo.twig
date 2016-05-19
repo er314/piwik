@@ -5,7 +5,7 @@
     {% if hasSVGLogo %}
         <img src='{{ logoSVG }}' tabindex="3"
              alt="{% if isCustomLogo %}{{ 'General_PoweredBy'|translate }} {% endif %}Piwik"
-             class= {% if not isCustomLogo %}default-piwik-logo{% endif %}" />
+             class="{% if not isCustomLogo %}default-piwik-logo{% endif %}" />
     {% else %}
         <img src='{{ logoHeader }}' alt="{% if isCustomLogo %}{{ 'General_PoweredBy'|translate }} {% endif %}Piwik" />
     {% endif %}

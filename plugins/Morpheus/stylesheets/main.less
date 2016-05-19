@@ -475,7 +475,20 @@ div.sparkline {
     z-index: 1;
 }
 
+@media all and (max-width: 1300px) {
+  .dataTableSearchPattern input[type="text"] {
+    width: 100% !important;
+  }
+}
+
 .dataTableSearchPattern {
+
+    .dataTableSearchPatternWrapper {
+      margin: 0 auto;
+      display: block;
+      position: relative;
+    }
+
     background: none;
     height: auto;
     input {
@@ -485,11 +498,14 @@ div.sparkline {
         padding: 8px 10px;
         min-height: 30px !important;
         .box-sizing(border-box);
-        border: 1px solid @color-silver-l80;
+        border: 1px solid #adadad;
+        &:hover {
+          border-color: #333;
+        }
         .opacity(1);
 
         &[type="text"] {
-            width: 40% !important;
+            width: 80% !important;
             padding-right: 30px !important;
             padding-bottom: 2px !important;
             &:focus {
@@ -502,7 +518,7 @@ div.sparkline {
             float: none;
             .font-default(10px, 12px) !important;
             padding: 0 !important;
-            position: relative;
+            position: absolute;
             right: 33px;
             background: no-repeat 0 7px url('plugins/Morpheus/images/search_ico.png') !important;
             text-indent: 999999px;
