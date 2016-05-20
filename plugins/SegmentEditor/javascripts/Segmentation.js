@@ -972,8 +972,11 @@ Segmentation = (function($) {
             }
             // remove any remaining forms
 
+
             self.form = getFormHtml();
             self.target.prepend(self.form);
+
+            piwikHelper.setMarginLeftToBeInViewport(self.form);
 
             // if there's enough space to the left & not enough space to the right,
             // anchor the form to the right of the selector

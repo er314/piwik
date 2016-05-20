@@ -454,7 +454,7 @@ div.scrollable {
 
 .segmentationContainer .submenu {
     font-size: 13px;
-    min-width: 200px;
+    min-width: 206px;
 }
 
 .segmentationContainer .submenu ul {
@@ -464,13 +464,14 @@ div.scrollable {
     font-weight: normal;
     line-height: 20px;
     list-style: none outside none;
-    margin-left: 5px;
     margin-right: 0;
     padding-top: 10px;
 }
 
+
+
 .segmentationContainer .submenu ul li {
-    padding: 2px 0 1px 6px;
+    padding: 2px 0 1px 0;
     margin: 3px 0 0 0;
     cursor: pointer;
 }
@@ -522,7 +523,7 @@ div.scrollable {
 
 .segmentEditorPanel.expanded .segmentFilterContainer > input[type="text"] {
     font-size: 11px;
-    width: 200px;
+    width: 206px;
     padding: 0;
     border: 1px solid #d0d0d0;
     border-width: 1px;
@@ -548,9 +549,8 @@ div.scrollable {
 }
 
 .segmentEditorPanel.expanded .add_new_segment {
-    clear: both;
-    float: right;
-    margin: 12px 9px 10px 0;
+    width: 100%;
+    margin: 16px 0 8px 0;
 }
 
 .segmentationContainer > ul.submenu > li {
@@ -728,7 +728,11 @@ a.metric_category {
 }
 
 .segmentEditorPanel a.title {
-    padding-bottom: 8px;
+    padding-bottom: 7px;
+}
+
+.segmentEditorPanel.expanded a.title {
+    padding-bottom: 10px;
 }
 
 .segmentEditorPanel.expanded .segmentationTitle {

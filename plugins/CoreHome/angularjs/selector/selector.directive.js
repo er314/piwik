@@ -21,6 +21,12 @@
 
                 element.find('.title').on('click', function () {
                     element.toggleClass('expanded');
+
+                    var $position = element.find('.dropdown.positionInViewport');
+
+                    if ($position.size()) {
+                        piwikHelper.setMarginLeftToBeInViewport($position);
+                    }
                 });
 
                 function onClickOutsideElement (event) {

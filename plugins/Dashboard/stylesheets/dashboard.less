@@ -144,7 +144,6 @@
 }
 
 .dashboardSettings ul.submenu {
-  padding-top: 5px;
   display: none;
   float: left;
 }
@@ -160,13 +159,9 @@
   background-color: @theme-color-background-contrast;
 }
 
-.dashboardSettings > ul.submenu > li {
+.dashboardSettings ul.submenu > li {
   padding: 5px 0;
   clear: both;
-}
-
-.dashboardSettings > ul.submenu > li:hover {
-  color:@theme-color-link;
 }
 
 #changeDashboardLayout h2 {
@@ -318,8 +313,15 @@ div.widgetpreview-preview {
   width: 200px;
 }
 
-.dashboardSettings .submenu ul li:hover {
+.dashboardSettings ul.submenu > li.generalAction:hover {
   color: @theme-color-link;
+  cursor:pointer;
+}
+
+.dashboardSettings .submenu ul li:not([disabled]):hover {
+  background: @theme-color-background-base;
+  border-radius: 2px;
+  cursor:pointer;
 }
 
 .dashboardSettings .submenu li[disabled],

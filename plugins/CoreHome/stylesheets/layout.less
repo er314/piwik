@@ -140,7 +140,8 @@ nav {
 
       .quick-access {
         width: auto !important;
-          .icon-search {
+
+        .icon-search {
             left: 30px;
           }
       }
@@ -316,13 +317,19 @@ nav {
 
     visibility: hidden;
     opacity: 0;
-    z-index: 2;
+    z-index: 10;
 
     .quick-access {
       z-index: 1000;
       position: absolute;
       width: 208px;
       margin-left: 16px;
+
+      .dropdown {
+        width: 209px;
+        padding: 0;
+      }
+
       input {
         height: 33px;
         font-size: 11px;
