@@ -54,6 +54,18 @@
            href='javascript:;' title="{{ 'General_ExportThisReport'|translate|e('html_attr') }}"
            data-activates='dropdownExport{{ randomIdForDropdown }}'><span class="icon-export"></span></a>
 
+        {% if properties.show_search %}
+            <a class='dropdown-button dataTableAction searchAction'
+               href='javascript:;' title="{{ 'General_Search'|translate|e('html_attr') }}"
+               ><span class="icon-search"></span>
+                <span class="icon-close" title="{{ 'CoreHome_CloseSearch'|translate|e('html_attr') }}"></span>
+                <input id="widgetSearch_{{ properties.report_id }}"
+                       title="{{ 'CoreHome_DataTableHowToSearch'|translate|e('html_attr') }}"
+                       type="text"
+                       class="dataTableSearchInput browser-default" />
+            </a>
+        {% endif %}
+
         <ul id='dropdownExport{{ randomIdForDropdown }}' class='dropdown-content exportToFormatItems'>
             {% set requestParams = properties.request_parameters_to_modify|json_encode %}
             <li><a target="_blank" requestParams="{{ requestParams|e('html_attr') }}" methodToCall="{{ properties.apiMethodToRequestDataTable }}" format="CSV" filter_limit="{{ properties.export_limit }}">CSV</a></li>

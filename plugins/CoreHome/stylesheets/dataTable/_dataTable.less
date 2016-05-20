@@ -165,40 +165,75 @@ table.dataTable img {
   font-size: 12px;
 }
 
-.dataTableSearchPattern {
-  margin: 5px 0 2px 0;
-  height: 20px;
-  display: block;
-  white-space: nowrap;
-  background: url(plugins/Morpheus/images/search_bg.png) no-repeat center 0;
-  text-align: center;
+.dataTableSearchInput {
+  display: inline-block;
+  opacity: 0;
+  color: #adadad !important;
+  min-height: 30px !important;
+  padding-left: 25px !important;
+  width: 100% !important;
+  transition: opacity 0.3s ease !important;
+  box-shadow: 0 0 !important;
 }
 
-.dataTableSearchPattern input {
-  vertical-align: top;
-  font-size: 10px;
-  border: 0;
-  background: transparent;
-  width: 21px;
-  height: 17px;
-  overflow: hidden;
-  opacity: 0;
-  filter: Alpha(opacity=0);
-  cursor: pointer;
-  color: #adadad;
-  &:hover {
-    color: #333;
+.searchAction:hover {
+  .dataTableSearchInput {
+    &:hover,
+    &:focus {
+      color: #333 !important;
+    }
   }
 }
 
-.dataTableSearchPattern .searchInput {
-  width: 114px;
-  height: auto;
-  overflow: visible;
-  padding: 2px 6px !important;
-  opacity: 1;
+.searchAction {
+  transition: width 0.3s ease !important;
+  text-align: left !important;
+  padding-left: 10px;
+  position: relative;
+  cursor: pointer;
+
+  .icon-search {
+    display: inline-block;
+    cursor: pointer;
+    z-index: 1;
+    position: absolute;
+    top: 8px;
+    left: 8px;
+  }
+
+  .icon-close {
+    display: none;
+  }
+}
+
+.searchAction.searchActive {
   cursor: text;
-  filter: Alpha(opacity=100);
+
+  .icon-close {
+    display: inline-block;
+    font-size: 10px;
+    cursor: pointer;
+    position: absolute;
+    top: 12px;
+    right: 10px;
+    color: #adadad !important;
+    &:hover,
+    &:focus {
+      color: #333 !important;
+    }
+  }
+  .icon-search {
+    cursor: pointer;
+    color: #adadad !important;
+    &:hover,
+    &:focus {
+      color: #333 !important;
+    }
+  }
+
+  .dataTableSearchInput {
+    opacity: 1;
+  }
 }
 
 .dataTableNext,
@@ -231,10 +266,6 @@ table.dataTable img {
 .dataTableNext,
 .dataTablePrevious {
   visibility: hidden;
-}
-
-.dataTableSearchPattern {
-  display: none;
 }
 
 .dataTablePaginationControl {

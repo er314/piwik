@@ -641,69 +641,91 @@ $.extend(DataTable.prototype, UIControl.prototype, {
             }
         });
 
-        $('.dataTableSearchPattern', domElem)
-            .css({display: 'block'})
-            .each(function () {
-                // when enter is pressed in the input field we submit the form
-                $('.searchInput', this)
-                    .on("keyup",
-                    function (e) {
-                        if (isEnterKey(e)) {
-                            $(this).siblings(':submit').submit();
-                        }
-                    }
-                )
-                    .val(currentPattern)
-                ;
 
-                $(':submit', this).submit(
-                    function () {
-                        var keyword = $(this).siblings('.searchInput').val();
-                        self.param.filter_offset = 0;
+        var $searchAction = $('.dataTableAction.searchAction', domElem);
+        if (!$searchAction.size()) {
+            return;
+        }
 
-                        $.each(patternsToReplace, function (index, pattern) {
-                            if (0 === keyword.indexOf(pattern.from)) {
-                                keyword = pattern.to + keyword.substr(1);
-                            }
-                        });
+        $searchAction.on('click', showSearch);
+        $searchAction.find('.icon-close').on('click', hideSearch);
 
-                        if (self.param.search_recursive) {
-                            self.param.filter_column_recursive = 'label';
-                            self.param.filter_pattern_recursive = keyword;
-                        }
-                        else {
-                            self.param.filter_column = 'label';
-                            self.param.filter_pattern = keyword;
-                        }
+        var $searchInput = $('.dataTableSearchInput', domElem);
 
-						delete self.param.totalRows;
+        var $controlsBar = $(this).parents('.dataTableControls').first();
+        var controlBarWidth = $controlsBar.width();
+        var rightPos = $searchAction.position().left + $searchAction.outerWidth();
+        var spaceLeft = controlBarWidth - rightPos;
+        var idealWidthForSearchBar = 250;
+        var minimalWidthForSearchBar = 150; // if it's only 130 pixel we still show it on same line
+        var width = idealWidthForSearchBar;
+        if (spaceLeft > minimalWidthForSearchBar && spaceLeft < idealWidthForSearchBar) {
+            width = spaceLeft;
+        }
 
-                        self.reloadAjaxDataTable(true, callbackSuccess);
-                    }
-                );
+        function hideSearch(event) {
+            event.preventDefault();
+            event.stopPropagation();
 
-                $(':submit', this)
-                    .click(function () { $(this).submit(); })
-                ;
+            var $searchAction = $(this).parents('.searchAction').first();
+            $searchAction.removeClass('searchActive active');
+            $searchAction.css('width', '');
+            $searchAction.on('click', showSearch);
+            $searchAction.find('.icon-search').off('click', searchForPattern);
 
-                // in the case there is a searched keyword we display the RESET image
-                if (currentPattern) {
-                    var target = this;
-                    var clearImg = $('<span class="searchReset">\
-							<img src="plugins/CoreHome/images/reset_search.png" title="Clear" />\
-							</span>')
-                        .click(function () {
-                            $('.searchInput', target).val('');
-                            $(':submit', target).submit();
-                        });
-                    $('.searchInput', this).after(clearImg);
+            $searchInput.val('');
+        }
+        function showSearch(event) {
+            event.preventDefault();
+            event.stopPropagation();
 
+            var $searchAction = $(this);
+            $searchAction.addClass('searchActive');
+            $searchAction.css('width', width + 'px');
+            $searchAction.find('.dataTableSearchInput').focus();
+
+            $searchAction.find('.icon-search').on('click', searchForPattern);
+            $searchAction.off('click', showSearch);
+        }
+
+        function searchForPattern() {
+            var keyword = $searchInput.val();
+            self.param.filter_offset = 0;
+
+            $.each(patternsToReplace, function (index, pattern) {
+                if (0 === keyword.indexOf(pattern.from)) {
+                    keyword = pattern.to + keyword.substr(1);
                 }
+            });
+
+            if (self.param.search_recursive) {
+                self.param.filter_column_recursive = 'label';
+                self.param.filter_pattern_recursive = keyword;
             }
-        );
+            else {
+                self.param.filter_column = 'label';
+                self.param.filter_pattern = keyword;
+            }
+
+            delete self.param.totalRows;
+
+            self.reloadAjaxDataTable(true, callbackSuccess);
+        }
+
+        $searchInput.on("keyup", function (e) {
+            if (isEnterKey(e)) {
+                searchForPattern();
+            }
+        })
+
+        // in the case there is a searched keyword we display the RESET image
+        if (currentPattern) {
+            $searchInput.val(currentPattern);
+            $searchAction.click();
+        }
 
         if (this.isEmpty && !currentPattern) {
-            $('.dataTableSearchPatternWrapper', domElem).css({visibility: 'hidden', display: 'block'});
+            $searchAction.css({display: 'none'});
         }
     },
 

@@ -15,49 +15,32 @@
                 </div>
             {% endif %}
 
-        {% set showRelatedReports = (properties.related_reports is not empty) and properties.show_related_reports %}
-        {% set hasContentInMiddle = (properties.show_search and not isDataTableEmpty) or showRelatedReports %}
-
         <div class="row">
 
-                <div class="col s12 {% if hasContentInMiddle %}m3{% else %}m6{% endif %} dataTableControls">
+                <div class="col s12 m9 dataTableControls">
                     {% include "@CoreHome/_dataTableActions.twig" %}
                 </div>
 
-                {% if hasContentInMiddle %}
-                    <div class="col s12 m6 dataTableSearchPattern">
-                        {% if properties.show_search %}
-                            <div class="dataTableSearchPatternWrapper">
-                                <label for="widgetSearch_{{ properties.report_id }}" style="display:none;"> {{ 'General_Search'|translate }} {{ visualization.config.translations.label|default('') }}</label>
-                                <input id="widgetSearch_{{ properties.report_id }}" type="text" class="searchInput" />
-                                <input type="submit" value="{{ 'General_Search'|translate }}" />
-                            </div>
-                        {% endif %}
-
-                        {% if showRelatedReports %}
-                            <div class="row datatableRelatedReports">
-                                {{ properties.related_reports_title|raw }}
-                                <ul style="list-style:none;{% if properties.related_reports|length == 1 %}display:inline-block;{% endif %}}">
-                                    <li><span href="{{ properties.self_url }}" style="display:none;">{{ properties.title }}</span></li>
-
-                                    {% for reportUrl,reportTitle in properties.related_reports %}
-                                        <li><span href="{{ reportUrl }}">{{ reportTitle }}</span></li>
-                                    {% endfor %}
-                                </ul>
-                            </div>
-                        {% endif %}
-                    </div>
-                {% endif %}
-
                 {% if properties.show_footer_icons and properties.show_pagination_control or properties.show_limit_control %}
-                    <div class="col s12 {% if hasContentInMiddle %}m3{% else %}m6{% endif %} limitSelection"
+                    <div class="col s12 m3 limitSelection"
                          title="{{ 'General_RowsToDisplay'|translate }}" alt="{{ 'General_RowsToDisplay'|translate }}"
-                         style="text-align: right"
                          ></div>
                 {% endif %}
             </div>
-
         </div>
+
+        {% if (properties.related_reports is not empty) and properties.show_related_reports %}
+            <div class="row datatableRelatedReports">
+                {{ properties.related_reports_title|raw }}
+                <ul style="list-style:none;{% if properties.related_reports|length == 1 %}display:inline-block;{% endif %}}">
+                    <li><span href="{{ properties.self_url }}" style="display:none;">{{ properties.title }}</span></li>
+
+                    {% for reportUrl,reportTitle in properties.related_reports %}
+                        <li><span href="{{ reportUrl }}">{{ reportTitle }}</span></li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
     </div>
 
     <span class="loadingPiwik" style="display:none;"><img src="plugins/Morpheus/images/loading-blue.gif"/> {{ 'General_LoadingData'|translate }}</span>
