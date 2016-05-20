@@ -703,7 +703,7 @@ $.extend(DataTable.prototype, UIControl.prototype, {
         );
 
         if (this.isEmpty && !currentPattern) {
-            $('.dataTableSearchPattern', domElem).css({visibility: 'hidden', display: 'block'});
+            $('.dataTableSearchPatternWrapper', domElem).css({visibility: 'hidden', display: 'block'});
         }
     },
 

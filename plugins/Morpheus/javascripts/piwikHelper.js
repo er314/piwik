@@ -143,6 +143,38 @@ var piwikHelper = {
     },
 
     /**
+     * Moves an element further to the left by changing the left margin to make sure as much as possible of an element
+     * is visible in the current viewport. The top position keeps unchanged.
+     * @param elementToPosition
+     */
+    setMarginLeftToBeInViewport: function (elementToPosition) {
+        var availableWidth = $(window).width();
+        $(elementToPosition).css('marginLeft', '0px');
+        var offset = $(elementToPosition).offset();
+        if (!offset) {
+            return;
+        }
+        var leftPos = offset.left;
+        if (leftPos < 0) {
+            leftPos = 0;
+        }
+        var widthSegmentForm = $(elementToPosition).outerWidth();
+        if (leftPos + widthSegmentForm > availableWidth) {
+            var extraSpaceForMoreBeauty = 16;
+            var newLeft = availableWidth - widthSegmentForm - extraSpaceForMoreBeauty;
+            if (newLeft < extraSpaceForMoreBeauty) {
+                newLeft = extraSpaceForMoreBeauty;
+            }
+            var marginLeft = Math.abs(leftPos - newLeft);
+            if (marginLeft > extraSpaceForMoreBeauty) {
+                // we only move it further to the left if it is actually more than 16px to the left.
+                // otherwise it is not really worth it and doesn't look as good.
+                $(elementToPosition).css('marginLeft', (parseInt(marginLeft, 10) * -1) + 'px');
+            }
+        }
+    },
+
+    /**
      * Displays a Modal dialog. Text will be taken from the DOM node domSelector.
      * Given callback handles will be mapped to the buttons having a role attriute
      *
