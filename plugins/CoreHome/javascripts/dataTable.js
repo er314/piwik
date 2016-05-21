@@ -640,8 +640,7 @@ $.extend(DataTable.prototype, UIControl.prototype, {
                 currentPattern = pattern.from + currentPattern.substr(2);
             }
         });
-
-
+        
         var $searchAction = $('.dataTableAction.searchAction', domElem);
         if (!$searchAction.size()) {
             return;
@@ -652,15 +651,17 @@ $.extend(DataTable.prototype, UIControl.prototype, {
 
         var $searchInput = $('.dataTableSearchInput', domElem);
 
-        var $controlsBar = $(this).parents('.dataTableControls').first();
-        var controlBarWidth = $controlsBar.width();
-        var rightPos = $searchAction.position().left + $searchAction.outerWidth();
-        var spaceLeft = controlBarWidth - rightPos;
-        var idealWidthForSearchBar = 250;
-        var minimalWidthForSearchBar = 150; // if it's only 130 pixel we still show it on same line
-        var width = idealWidthForSearchBar;
-        if (spaceLeft > minimalWidthForSearchBar && spaceLeft < idealWidthForSearchBar) {
-            width = spaceLeft;
+        function getOptimalWidthForSearchField() {
+            var controlBarWidth = $('.dataTableControls', domElem).width();
+            var spaceLeft = controlBarWidth - $searchAction.position().left;
+            var idealWidthForSearchBar = 250;
+            var minimalWidthForSearchBar = 150; // if it's only 130 pixel we still show it on same line
+            var width = idealWidthForSearchBar;
+            if (spaceLeft > minimalWidthForSearchBar && spaceLeft < idealWidthForSearchBar) {
+                width = spaceLeft;
+            }
+
+            return width;
         }
 
         function hideSearch(event) {
@@ -668,7 +669,7 @@ $.extend(DataTable.prototype, UIControl.prototype, {
             event.stopPropagation();
 
             var $searchAction = $(this).parents('.searchAction').first();
-            $searchAction.removeClass('searchActive active');
+            $searchAction.removeClass('searchActive active searchIsInUse');
             $searchAction.css('width', '');
             $searchAction.on('click', showSearch);
             $searchAction.find('.icon-search').off('click', searchForPattern);
@@ -681,6 +682,7 @@ $.extend(DataTable.prototype, UIControl.prototype, {
 
             var $searchAction = $(this);
             $searchAction.addClass('searchActive');
+            var width = getOptimalWidthForSearchField();
             $searchAction.css('width', width + 'px');
             $searchAction.find('.dataTableSearchInput').focus();
 
@@ -721,6 +723,7 @@ $.extend(DataTable.prototype, UIControl.prototype, {
         // in the case there is a searched keyword we display the RESET image
         if (currentPattern) {
             $searchInput.val(currentPattern);
+            $searchAction.addClass('searchIsInUse')
             $searchAction.click();
         }
 
