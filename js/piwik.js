@@ -3829,7 +3829,7 @@ if (typeof window.Piwik !== 'object') {
                 (String(cookieVisitorIdValues.lastEcommerceOrderTs).length ? '&_ects=' + cookieVisitorIdValues.lastEcommerceOrderTs : '') +
                 (String(referralUrl).length ? '&_ref=' + encodeWrapper(purify(referralUrl.slice(0, referralUrlMaxLength))) : '') +
                 (charSet ? '&cs=' + encodeWrapper(charSet) : '') +
-                '&send_image=0';
+                '&send_image=1';
 
                 // browser features
                 for (i in browserFeatures) {
